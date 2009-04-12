@@ -24,6 +24,16 @@ def scrape_status(file):
 
     return times
 
+class StopTable(object):
+    def __init__(self, name=None, stops=None):
+        self.name = name
+        self.stops = stops
+
+class Stop(object):
+    def __init__(self, name, url):
+        self.name = name
+        self.url = url
+
 def scrape_stops(file):
     soup = BeautifulSoup(file, convertEntities=BeautifulSoup.ALL_ENTITIES)
 
@@ -38,10 +48,13 @@ def scrape_stops(file):
     for table in tables:
         stops = []
         for a in table.findAll('a'):
-            stops.append((a.findNext(text=re.compile(r'\w+')).string,
-                          a['href']))
+            stops.append(Stop(name=a.findNext(text=re.compile(r'\w+')).string,
+                              url=a['href']))
         dir_stops.append(stops)
 
-    return ((dir_names[0], dir_stops[0]), (dir_names[1], dir_stops[1]))
+    assert len(dir_names) == 2
+    assert len(dir_stops) == 2
+    return (StopTable(dir_names[0], dir_stops[0]),
+            StopTable(dir_names[1], dir_stops[1]))
 
 d = scrape_stops(open('data/stops.html'))
