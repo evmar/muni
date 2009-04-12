@@ -6,6 +6,11 @@ stop list
 http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&r=J
 => stops.html
 
+links to destination list
+which has URLs like
+http://www.nextmuni.com/predictor/simpleToStopSelector.shtml?a=sf-muni&r=J&d=J__IB2&s=4787
+we just swap into simplePrediction to get status.
+
 status page
 http://www.nextmuni.com/predictor/simplePrediction.shtml?a=sf-muni&r=N&d=N__IB3&s=5419
 => status.html
