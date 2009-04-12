@@ -16,5 +16,10 @@ class TestScrape(unittest.TestCase):
         self.assertEqual(25, len(stops[0].stops))
         self.assertEqual(23, len(stops[1].stops))
 
+    def testRoutes(self):
+        routes = scrape.scrape_routes(open('data/routes.html'))
+        self.assertEqual(87, len(routes))
+        self.assertEqual("J-Church", routes[1].name)
+
 if __name__ == '__main__':
     unittest.main()

@@ -57,4 +57,19 @@ def scrape_stops(file):
     return (StopTable(dir_names[0], dir_stops[0]),
             StopTable(dir_names[1], dir_stops[1]))
 
-d = scrape_stops(open('data/stops.html'))
+
+class Route(object):
+    def __init__(self, name, url):
+        self.name = name
+        self.url = url
+
+
+def scrape_routes(file):
+    soup = BeautifulSoup(file, convertEntities=BeautifulSoup.ALL_ENTITIES)
+
+    routes = []
+    for route in soup.findAll('a', href=re.compile(r'simpleStopSelector')):
+        url = route.href
+        name = route.findNext(text=re.compile(r'\w+')).string
+        routes.append(Route(name, url))
+    return routes
