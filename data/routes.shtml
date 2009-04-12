@@ -1,0 +1,394 @@
+<html><head><!-- #BeginTemplate "/Templates/simplePredictor.dwt" -->
+
+
+
+
+
+<style>
+A:link {text-decoration:none}
+A:visited {text-decoration:none}
+A:hover {text-decoration:underline}
+</style>
+<!-- #BeginEditable "doctitle" --> 
+<title>NextBus Route Selector</title>
+<script language="JavaScript">
+<!--
+function onLoad() {}
+function onResize() {}
+//-->
+</script>
+<!-- #EndEditable -->
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+</head><body vlink="#006600" bgcolor="#cc6633" link="#006600">
+<table width="94%" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tbody><tr> 
+    <td width="6" bgcolor="#000000" height="8"><img src="routes_files/dot_clr.gif" alt="" width="6" height="6"></td>
+    <td width="140" bgcolor="#000000" height="8"><img src="routes_files/dot_clr.gif" alt="" width="6" height="6"></td>
+    <td width="12" bgcolor="#000000" height="8"><img src="routes_files/dot_clr.gif" alt="" width="6" height="6"></td>
+    <td bgcolor="#000000" height="8"><img src="routes_files/dot_clr.gif" alt="" width="6" height="6"></td>
+    <td width="14" align="right" bgcolor="#000000" height="8"><img src="routes_files/dot_clr.gif" alt="" width="6" height="6"></td>
+    <td width="6" bgcolor="#000000" height="8"><img src="routes_files/dot_clr.gif" alt="" width="6" height="8"></td>
+  </tr>
+  <tr> 
+    <td width="6" bgcolor="#000000">&nbsp;</td>
+    <td width="140" background="routes_files/up_lines.gif" bgcolor="#ffffff"><a href="http://www.nextmuni.com/" target="_top"><img src="routes_files/nextmuni_logo.gif" alt="Click here to get a listing of management pages for all transit agencies" width="169" border="0" height="69"></a></td>
+    <td width="12" background="routes_files/up_lines.gif">&nbsp;</td>
+    <td background="routes_files/up_lines.gif">            
+      <!-- #BeginEditable "ad" --> 
+     <div align="center">
+	 
+      <iframe name="adFrame" src="routes_files/stopSelectorAd.html" marginwidth="0" marginheight="0" style="" allowtransparency="true" scrolling="no" width="468" frameborder="0" height="60"></iframe>
+    </div>
+      <!-- #EndEditable --></td>
+    <td width="14" align="right" background="routes_files/up_lines.gif"><img src="routes_files/ur_corner.gif" alt="" width="14" height="69"></td>
+    <td width="6" bgcolor="#000000" height="6"><img src="routes_files/dot_clr.gif" alt="" width="6" height="6"></td>
+  </tr>
+  <tr valign="top"> 
+    <td width="6" bgcolor="#000000">&nbsp;</td>
+    <td width="140" bgcolor="#cccc99"> 
+      <p>
+        
+        <br><br>
+        <a href="http://www.nextmuni.com/corporate/works/index.htm"><img src="routes_files/btn_howItWorks.gif" alt="Explanation on how the predictions are calculated using GPS" width="169" border="0" height="27"></a><br>
+        <a href="http://www.nextmuni.com/help/help.shtml" target="_top"><img src="routes_files/btn_help.gif" alt="Help on using NextBus" width="169" border="0" height="27"></a><br>
+        <a href="http://www.nextmuni.com/wirelessConfig/index.htm" target="_top"><img src="routes_files/btn_wrless.gif" alt="Help on configuring wireless devices to obtain predictions" width="169" border="0" height="27"></a><br>
+        <a href="http://www.nextmuni.com/wireless/miniRegion.shtml" target="_top"><img src="routes_files/btn_adaWebsite.gif" alt="ADA compliant way of getting predictions. Useful for text to speech synthesis" width="169" border="0" height="27"></a><br>
+
+        <!--        <a href="/myNextBus/wapAlerts.htm" target="_top"><img src="/images/btn_wapAlerts.gif" width="140" height="27" border="0" alt="Have your WAP phone ring when desired prediction reached"></a><br> --> 
+        <script language="JavaScript">
+        <!--
+        function isAtLeast40Browser() {
+		  if (navigator.userAgent.indexOf("Opera") != -1) {
+		    var versionNum = parseInt(navigator.userAgent.charAt(navigator.userAgent.indexOf("Opera") + 6)); 
+			return (versionNum >= 6);
+		  }
+		  
+          return parseInt(navigator.appVersion.charAt(0)) >= 4 &&
+                 (navigator.appName == "Microsoft Internet Explorer" || navigator.appName == "Netscape")&&
+                 navigator.userAgent.indexOf("WebTV") == -1;
+        }
+
+        // In case javascript is turned on, create button that allows user to switch back
+        // to complicated website.
+        if (isAtLeast40Browser())
+          document.write("<a href='/redirect.shtml'><img src='/images/btn_fancyWebsite.gif' width=169 height=27 alt='Fancy frame based way of getting predictions' border=0></a>");
+        //-->
+        </script><a href="http://www.nextmuni.com/redirect.shtml"><img src="routes_files/btn_fancyWebsite.gif" alt="Fancy frame based way of getting predictions" width="169" border="0" height="27"></a>
+        <a href="http://www.nextmuni.com/agencies" target="_top"><img src="routes_files/btn_managementPages.gif" alt="Management web pages for transit agency" width="169" border="0" height="27"></a>
+        <br><br><br><br><br>
+      </p>
+    </td>
+    <td width="12" bgcolor="#ffffff">&nbsp;</td>
+    <td bgcolor="#ffffff">
+      <font face="Arial, Helvetica, sans-serif">
+        <!-- #BeginEditable "content" --> 
+      </font><div align="center"><font face="Arial, Helvetica, sans-serif"><font size="+2">Step</font><img src="routes_files/number3.gif" alt="2" width="46" align="absmiddle" height="46"> 
+        Select your route/line:</font></div>
+<font face="Arial, Helvetica, sans-serif">      </font><div align="center">
+<font face="Arial, Helvetica, sans-serif"><font face="Arial, Helvetica, sans-serif"><b>San Francisco Muni Routes/Lines</b><br><a href="http://www.nextmuni.com/predictor/simpleAgencySelector.shtml?re=California-Northern"><font size="-2"> (Select another agency)</font></a></font><br><br>
+<table border="1" cellpadding="3" cellspacing="1">
+<tbody><tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=F"><font face="Arial, Helvetica, sans-serif">F-Market &amp; Wharves</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=J"><font face="Arial, Helvetica, sans-serif">J-Church</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=KT"><font face="Arial, Helvetica, sans-serif">KT-Ingleside/Third Street</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=L"><font face="Arial, Helvetica, sans-serif">L-Taraval</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=M"><font face="Arial, Helvetica, sans-serif">M-Ocean View</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=N"><font face="Arial, Helvetica, sans-serif">N-Judah</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=S"><font face="Arial, Helvetica, sans-serif">S-Castro Shuttle</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=1"><font face="Arial, Helvetica, sans-serif">1-California</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=1AX"><font face="Arial, Helvetica, sans-serif">1AX-California A Express</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=1BX"><font face="Arial, Helvetica, sans-serif">1BX-California B Express</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=2"><font face="Arial, Helvetica, sans-serif">2-Clement</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=3"><font face="Arial, Helvetica, sans-serif">3-Jackson</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=4"><font face="Arial, Helvetica, sans-serif">4-Sutter</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=5"><font face="Arial, Helvetica, sans-serif">5-Fulton</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=6"><font face="Arial, Helvetica, sans-serif">6-Parnassus</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=7"><font face="Arial, Helvetica, sans-serif">7-Haight</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=9"><font face="Arial, Helvetica, sans-serif">9-San Bruno</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=9AX"><font face="Arial, Helvetica, sans-serif">9AX-Bayshore A Exp</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=9BX"><font face="Arial, Helvetica, sans-serif">9BX-Bayshore B Exp</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=9X"><font face="Arial, Helvetica, sans-serif">9X-Bayshore Exp</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=10"><font face="Arial, Helvetica, sans-serif">10-Townsend</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=12"><font face="Arial, Helvetica, sans-serif">12-Folsom / Pacific</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=14"><font face="Arial, Helvetica, sans-serif">14-Mission</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=14L"><font face="Arial, Helvetica, sans-serif">14L-Mission Limited</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=14X"><font face="Arial, Helvetica, sans-serif">14X-Mission Express</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=16AX"><font face="Arial, Helvetica, sans-serif">16AX-Noriega A Exp</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=16BX"><font face="Arial, Helvetica, sans-serif">16BX-Noriega B Exp</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=17"><font face="Arial, Helvetica, sans-serif">17-Park Merced</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=18"><font face="Arial, Helvetica, sans-serif">18-46th Avenue</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=19"><font face="Arial, Helvetica, sans-serif">19-Polk</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=20"><font face="Arial, Helvetica, sans-serif">20-Columbus</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=21"><font face="Arial, Helvetica, sans-serif">21-Hayes</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=22"><font face="Arial, Helvetica, sans-serif">22-Fillmore</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=23"><font face="Arial, Helvetica, sans-serif">23-Monterey</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=24"><font face="Arial, Helvetica, sans-serif">24-Divisadero</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=26"><font face="Arial, Helvetica, sans-serif">26-Valencia</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=27"><font face="Arial, Helvetica, sans-serif">27-Bryant</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=28"><font face="Arial, Helvetica, sans-serif">28-19th Avenue</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=28L"><font face="Arial, Helvetica, sans-serif">28L-19th Avenue Limited</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=29"><font face="Arial, Helvetica, sans-serif">29-Sunset</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=30"><font face="Arial, Helvetica, sans-serif">30-Stockton</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=30X"><font face="Arial, Helvetica, sans-serif">30X-Marina Express</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=31"><font face="Arial, Helvetica, sans-serif">31-Balboa</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=31AX"><font face="Arial, Helvetica, sans-serif">31AX-Balboa A Express</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=31BX"><font face="Arial, Helvetica, sans-serif">31BX-Balboa B Express</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=33"><font face="Arial, Helvetica, sans-serif">33-Stanyan</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=35"><font face="Arial, Helvetica, sans-serif">35-Eureka</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=36"><font face="Arial, Helvetica, sans-serif">36-Teresita</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=37"><font face="Arial, Helvetica, sans-serif">37-Corbett</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=38"><font face="Arial, Helvetica, sans-serif">38-Geary</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=38AX"><font face="Arial, Helvetica, sans-serif">38AX-Geary A Express</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=38BX"><font face="Arial, Helvetica, sans-serif">38BX-Geary B Express</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=38L"><font face="Arial, Helvetica, sans-serif">38L-Geary Limited</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=39"><font face="Arial, Helvetica, sans-serif">39-Coit</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=41"><font face="Arial, Helvetica, sans-serif">41-Union</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=43"><font face="Arial, Helvetica, sans-serif">43-Masonic</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=44"><font face="Arial, Helvetica, sans-serif">44-O'Shaughnessy</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=45"><font face="Arial, Helvetica, sans-serif">45-Union/Stockton</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=47"><font face="Arial, Helvetica, sans-serif">47-Van Ness</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=48"><font face="Arial, Helvetica, sans-serif">48-Quintara - 24th Street</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=49"><font face="Arial, Helvetica, sans-serif">49-Mission-Van Ness</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=52"><font face="Arial, Helvetica, sans-serif">52-Excelsior</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=53"><font face="Arial, Helvetica, sans-serif">53-Southern Heights</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=54"><font face="Arial, Helvetica, sans-serif">54-Felton</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=56"><font face="Arial, Helvetica, sans-serif">56-Rutland</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=66"><font face="Arial, Helvetica, sans-serif">66-Quintara</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=67"><font face="Arial, Helvetica, sans-serif">67-Bernal Heights</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=71"><font face="Arial, Helvetica, sans-serif">71-Haight-Noriega</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=71L"><font face="Arial, Helvetica, sans-serif">71L-Haight-Noriega Limited</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=74"><font face="Arial, Helvetica, sans-serif">74x-Culture Bus</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=76"><font face="Arial, Helvetica, sans-serif">76-Marin Headlands</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=80X"><font face="Arial, Helvetica, sans-serif">80X-Gateway Express</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=81X"><font face="Arial, Helvetica, sans-serif">81X-Caltrain Express</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=82X"><font face="Arial, Helvetica, sans-serif">82X-Presidio Express</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=88"><font face="Arial, Helvetica, sans-serif">88-B.A.R.T. Shuttle</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=89"><font face="Arial, Helvetica, sans-serif">89-Laguna Honda</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=90"><font face="Arial, Helvetica, sans-serif">90-Owl</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=91"><font face="Arial, Helvetica, sans-serif">91-Owl</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=108"><font face="Arial, Helvetica, sans-serif">108-Treasure Island</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=K%20OWL"><font face="Arial, Helvetica, sans-serif">K-Owl</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=L%20OWL"><font face="Arial, Helvetica, sans-serif">L-Owl</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=M%20OWL"><font face="Arial, Helvetica, sans-serif">M-Owl</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=N%20OWL"><font face="Arial, Helvetica, sans-serif">N-Owl</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=T%20OWL"><font face="Arial, Helvetica, sans-serif">T-Owl</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=59"><font face="Arial, Helvetica, sans-serif">Powell-Mason Cable Car</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=60"><font face="Arial, Helvetica, sans-serif">Powell-Hyde Cable Car</font></a>
+</td></tr>
+<tr><td>
+<a href="http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&amp;r=61"><font face="Arial, Helvetica, sans-serif">California Street Cable Car</font></a>
+</td></tr>
+</tbody></table></font></div>
+
+<font face="Arial, Helvetica, sans-serif">      </font><p><font face="Arial, Helvetica, sans-serif">Use NextBus to track your transit bus or train via satellite, see a live 
+        map of vehicle locations, or link to full schedule and fare information.</font></p>
+<font face="Arial, Helvetica, sans-serif">      <br>
+      <!-- #EndEditable --> 
+      </font></td>
+    <td width="14" align="right" bgcolor="#ffffff">&nbsp;</td>
+    <td width="6" bgcolor="#000000"><img src="routes_files/dot_clr.gif" alt="" width="6" height="6"></td>
+  </tr>
+  <tr valign="bottom"> 
+    <td width="6" bgcolor="#000000" height="15">&nbsp;</td>
+    <td width="140" bgcolor="#cccc99" height="15">
+      <div align="center"><font size="1" face="Arial, Helvetica, sans-serif">Send 
+        comments to:<br>
+        <a href="mailto:feedback@nextbus.com">feedback@nextbus.com</a></font></div><img src="routes_files/ll_corner.gif" alt="" width="140" height="15">
+    </td>
+    <td width="12" bgcolor="#ffffff" height="15">&nbsp;</td>
+    <td bgcolor="#ffffff" height="15"><br> <!-- #BeginLibraryItem "/Library/copyright.lbi" -->
+<div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif">© 
+  2008 NextBus Inc. All rights reserved.</font></div>
+<div><img src="routes_files/blank.gif" width="300" border="0" height="4"></div><!-- #EndLibraryItem --></td>
+    <td width="14" align="right" bgcolor="#ffffff" height="15"><img src="routes_files/lr_corner.gif" alt="" width="14" border="0" height="14" hspace="0"></td>
+    <td width="6" bgcolor="#000000" height="6"><img src="routes_files/dot_clr.gif" alt="" width="6" height="6"></td>
+  </tr>
+  <tr> 
+    <td width="6" bgcolor="#000000" height="6"><img src="routes_files/dot_clr.gif" alt="" width="6" height="6"></td>
+    <td width="140" bgcolor="#000000" height="6"><img src="routes_files/dot_clr.gif" alt="" width="6" height="6"></td>
+    <td width="12" bgcolor="#000000" height="6"><img src="routes_files/dot_clr.gif" alt="" width="6" height="6"></td>
+    <td bgcolor="#000000" height="6"><img src="routes_files/dot_clr.gif" alt="" width="6" height="6"></td>
+    <td width="14" align="right" bgcolor="#000000" height="6"><img src="routes_files/dot_clr.gif" alt="" width="6" height="6"></td>
+    <td width="6" bgcolor="#000000" height="6"><img src="routes_files/dot_clr.gif" alt="" width="6" height="6"></td>
+  </tr>
+</tbody></table>
+<!-- #BeginLibraryItem "/Library/forEveryPage.lbi" --><!-- Library item is for doing what should be done on every jsp page -->
+<!-- Hostname: sf-muni-bak.nextbus.com -->
+
+<!-- Following is for Google Analytics web hit tracking -->
+<script src="routes_files/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-370304-1";
+urchinTracker();
+</script><!-- #EndLibraryItem --><!-- #EndTemplate --></body></html>

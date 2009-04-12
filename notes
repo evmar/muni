@@ -1,0 +1,12 @@
+route list
+http://www.nextmuni.com/predictor/simpleRouteSelector.shtml?a=sf-muni
+=> routes.html
+
+stop list
+http://www.nextmuni.com/predictor/simpleStopSelector.shtml?a=sf-muni&r=J
+=> stops.html
+
+status page
+http://www.nextmuni.com/predictor/simplePrediction.shtml?a=sf-muni&r=N&d=N__IB3&s=5419
+=> status.html
+
