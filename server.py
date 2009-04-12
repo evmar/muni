@@ -3,11 +3,11 @@
 from django.utils import simplejson
 
 data = {
-  "direction": "Inbound",
-  "stop": "21st and Dolores",
+  "direction": "Inbound to Embarcadero Station",
+  "name": "21st and Dolores",
   "times": [2, 4, 13],
 }
 
-print 'Content-type: text/json'
+print 'Content-type: text/plain'
 print
 print simplejson.dumps(data)
