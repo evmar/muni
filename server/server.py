@@ -4,6 +4,8 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from django.utils import simplejson
 import backend
+import logging
+import urllib
 
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -17,15 +19,21 @@ class MainPage(webapp.RequestHandler):
 
 class APIQuery(webapp.RequestHandler):
     def get(self, query):
+        query = urllib.unquote(query)
+        if '&r=' in query:
+            json = backend.get_route(query)
+        elif not query or 'a=' in query:
+            json = backend.get_routes()
+        else:
+            raise "Unknown query"
         self.response.headers['Content-Type'] = 'text/plain'
-        json = backend.get_routes()
         self.response.out.write(json)
 
 
 application = webapp.WSGIApplication(
-                                     [('/', MainPage),
-                                      ('/api/(.*)', APIQuery)],
-                                     debug=True)
+    [('/', MainPage),
+     ('/api/(.*)', APIQuery)],
+    debug=True)
 
 def main():
   run_wsgi_app(application)

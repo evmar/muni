@@ -91,7 +91,7 @@ class Wireless:
         return [Route(name, url) for (name, url)
                 in self._scrape_list(file, re.compile(r'miniDirection.shtml'))]
 
-    def scrape_direction(self, file):
+    def scrape_directions(self, file):
         return [Direction(name, url) for (name, url)
                 in self._scrape_list(file, re.compile(r'miniStop.shtml'))]
 

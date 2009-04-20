@@ -36,7 +36,7 @@ class TestWirelessScrape(unittest.TestCase):
         self.assertEqual("California Street Cable Car", routes[-1].name)
 
     def testRoute(self):
-        dirs = self.scraper.scrape_direction(open('test/wireless/miniDirection.shtml?a=sf-muni&r=J'))
+        dirs = self.scraper.scrape_directions(open('test/wireless/miniDirection.shtml?a=sf-muni&r=J'))
         self.assertEqual(2, len(dirs))
         self.assertEqual('Inbound to Embarcadero Station', dirs[0].name)
         self.assertEqual('miniStop.shtml?a=sf-muni&r=J&d=J__IB2', dirs[0].url)
