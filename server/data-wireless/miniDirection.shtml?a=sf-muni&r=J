@@ -1,0 +1,26 @@
+
+
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <META NAME="PalmComputingPlatform" CONTENT="true">
+   <META NAME="HandHeldFriendly" CONTENT="True">
+   
+   <meta name = "viewport" content = "width = device-width, user-scalable = yes" />
+  <title>NextBus: J-Church, Inbound to Embarcadero Station, Church St & 29th St</title>
+
+</head>
+
+<body bgcolor="#FFFFFF">
+<div align="center"><img src="/logos/nextbusSimple.gif" alt="(NextBus Logo)" hspace=8 width="132" height="42"></div>
+<font face="Verdana, Arial, Helvetica, sans-serif">Select your direction:</font><br>
+<font face="Verdana, Arial, Helvetica, sans-serif">
+&nbsp;<a href="miniStop.shtml?a=sf-muni&r=J&d=J__IB2">Inbound to Embarcadero Station</a><br>
+&nbsp;<a href="miniStop.shtml?a=sf-muni&r=J&d=J__OB4">Outbound to Balboa Park Station</a><br>
+
+</font>
+<br>
+<div align="center"><font face="Arial, Helvetica, sans-serif" size="2"><!-- #BeginLibraryItem "/Library/copyrightSuperSimple.lbi" -->&copy; 2008 NextBus Inc.<!-- #EndLibraryItem --></font>
+</div>
+</body>
+</html>

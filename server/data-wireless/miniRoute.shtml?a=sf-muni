@@ -1,0 +1,135 @@
+
+
+
+
+
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <META NAME="PalmComputingPlatform" CONTENT="true">
+   <META NAME="HandHeldFriendly" CONTENT="True">
+   
+   <meta name = "viewport" content = "width = device-width, user-scalable = yes" />
+   <title>NextBus: F-Market & Wharves, Inbound to Fisherman's Wharf, Market St & 7th St</title>
+
+</head>
+
+<script>
+// This function is called when user enters a stop id.
+// It jumps to the prediction page for the stop specified.
+function stopIdEntered() {
+  var stopId = document.theForm.stopId.value;
+  var href = "/wireless/miniPrediction.shtml?a=sf-muni&stopId=" + stopId;
+  window.location.href = href;
+}
+</script>
+ 
+<body bgcolor="#FFFFFF">
+<div align="center"><img src="/logos/nextbusSimple.gif" alt="(NextBus Logo)" hspace=8 width="132" height="42"></div>
+
+
+	 <form name="theForm" method="post" action="">
+  <font face="Arial, Helvetica, sans-serif"><br>
+  Enter the stop id: </font>
+  <input type="text" name="stopId" size="5">
+  <input type="submit" name="Submit" value="Go" onClick="stopIdEntered(); return false;">
+    </form>
+	 
+    <font face="Arial, Helvetica, sans-serif">or</font> 
+    
+<font face="Verdana, Arial, Helvetica, sans-serif">Select your route/line:</font><br>
+  <font face="Verdana, Arial, Helvetica, sans-serif">
+  &nbsp;<a href="miniDirection.shtml?a=sf-muni&r=F">F-Market & Wharves</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=J">J-Church</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=KT">KT-Ingleside/Third Street</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=L">L-Taraval</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=M">M-Ocean View</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=N">N-Judah</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=S">S-Castro Shuttle</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=1">1-California</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=1AX">1AX-California A Express</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=1BX">1BX-California B Express</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=2">2-Clement</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=3">3-Jackson</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=4">4-Sutter</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=5">5-Fulton</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=6">6-Parnassus</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=7">7-Haight</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=9">9-San Bruno</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=9AX">9AX-Bayshore A Exp</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=9BX">9BX-Bayshore B Exp</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=9X">9X-Bayshore Exp</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=10">10-Townsend</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=12">12-Folsom / Pacific</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=14">14-Mission</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=14L">14L-Mission Limited</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=14X">14X-Mission Express</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=16AX">16AX-Noriega A Exp</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=16BX">16BX-Noriega B Exp</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=17">17-Park Merced</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=18">18-46th Avenue</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=19">19-Polk</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=20">20-Columbus</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=21">21-Hayes</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=22">22-Fillmore</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=23">23-Monterey</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=24">24-Divisadero</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=26">26-Valencia</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=27">27-Bryant</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=28">28-19th Avenue</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=28L">28L-19th Avenue Limited</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=29">29-Sunset</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=30">30-Stockton</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=30X">30X-Marina Express</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=31">31-Balboa</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=31AX">31AX-Balboa A Express</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=31BX">31BX-Balboa B Express</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=33">33-Stanyan</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=35">35-Eureka</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=36">36-Teresita</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=37">37-Corbett</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=38">38-Geary</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=38AX">38AX-Geary A Express</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=38BX">38BX-Geary B Express</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=38L">38L-Geary Limited</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=39">39-Coit</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=41">41-Union</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=43">43-Masonic</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=44">44-O'Shaughnessy</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=45">45-Union/Stockton</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=47">47-Van Ness</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=48">48-Quintara - 24th Street</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=49">49-Mission-Van Ness</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=52">52-Excelsior</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=53">53-Southern Heights</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=54">54-Felton</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=56">56-Rutland</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=66">66-Quintara</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=67">67-Bernal Heights</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=71">71-Haight-Noriega</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=71L">71L-Haight-Noriega Limited</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=74">74x-Culture Bus</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=76">76-Marin Headlands</a><br>
+&nbsp;<a href="miniStop.shtml?a=sf-muni&r=80X&d=80X_IB">80X-Gateway Express</a><br>
+&nbsp;<a href="miniStop.shtml?a=sf-muni&r=81X&d=81X_IB">81X-Caltrain Express</a><br>
+&nbsp;<a href="miniStop.shtml?a=sf-muni&r=82X&d=82X_IB">82X-Presidio Express</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=88">88-B.A.R.T. Shuttle</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=89">89-Laguna Honda</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=90">90-Owl</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=91">91-Owl</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=108">108-Treasure Island</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=K OWL">K-Owl</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=L OWL">L-Owl</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=M OWL">M-Owl</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=N OWL">N-Owl</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=T OWL">T-Owl</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=59">Powell-Mason Cable Car</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=60">Powell-Hyde Cable Car</a><br>
+&nbsp;<a href="miniDirection.shtml?a=sf-muni&r=61">California Street Cable Car</a><br>
+
+  </font> 
+<br>
+<div align="center"><font face="Arial, Helvetica, sans-serif" size="2"><!-- #BeginLibraryItem "/Library/copyrightSuperSimple.lbi" -->&copy; 2008 NextBus Inc.<!-- #EndLibraryItem --></font>
+</div>
+</body>
+</html>

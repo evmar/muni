@@ -1,0 +1,95 @@
+
+
+
+
+
+
+
+
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <META NAME="PalmComputingPlatform" CONTENT="true">
+   <META NAME="HandHeldFriendly" CONTENT="True">
+   
+   <meta name = "viewport" content = "width = device-width, user-scalable = yes" />
+<title>
+  NextBus
+
+: J-Church, Inbound to Embarcadero Station, 
+ Right Of Way & 21st St
+
+</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+  
+  
+   
+  <center>
+  <img src="/logos/nextbusSimple.gif" alt="(NextBus Logo)" hspace=8 width="132" height="42"><br>
+  <font face="Verdana, Arial, Helvetica, sans-serif">
+
+  <br>
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr> 
+      <td> 
+        <div align="right"><font size="2">Agency:&nbsp;</font></div>
+      </td>
+      <td><font size="2"><b>San Francisco Muni</b></font></td>
+    </tr>
+    <tr> 
+      <td> 
+        <div align="right"><font size="2">Route:&nbsp;</font></div>
+      </td>
+      <td><font size="2"><b>J-Church</b></font></td>
+    </tr>
+    
+    <tr> 
+      <td> 
+        <div align="right"><font size="2">Direction:&nbsp;</font></div>
+      </td>
+      <td><font size="2"><b>Inbound to Embarcadero Station</b></font></td>
+    </tr>
+    <tr> 
+      <td> 
+        <div align="right"><font size="2">Stop:&nbsp;</font></div>
+      </td>
+      <td><font size="2"><b>Right Of Way & 21st St</b> 
+	   (#16217) 
+	  </font></td>
+	</tr>
+    
+  </table>
+     <br>
+     
+
+      
+       <b>Note: Budget impacts on<br>fares &amp; service:<br>Visit SFMTA.COM or<br>call 311 for info. </b><br><br>
+     Next vehicle in:<br>
+     
+         <font face="Arial, Helvetica, sans-serif" size="5"><b>No current prediction</b></font><br>
+
+  </font>
+  </center>
+  
+<div align="center">
+
+<font face="Arial, Helvetica, sans-serif" size="2">
+  <br>Valid as of 3:22 PM Sunday, April 12<br>
+</font>
+
+  <p><font face="Arial, Helvetica, sans-serif"><a href="/wireless/miniPrediction.shtml?a=sf-muni&r=J&d=J__IB2&s=6217&soCacheNotUsed=1239574969830">Refresh</a></font></p>
+
+  <p><font face="Arial, Helvetica, sans-serif"><a href="/wireless/miniRoute.shtml?a=sf-muni">Select another route</a></font></p>
+  <p><font face="Arial, Helvetica, sans-serif"><a href="/wireless/miniDirection.shtml?a=sf-muni&r=J">Select another direction</a></font></p>
+  <p><font face="Arial, Helvetica, sans-serif"><a href="/wireless/miniStop.shtml?a=sf-muni&r=J&d=J__IB2">Select another stop</a></font></p>
+
+  <p><font face="Arial, Helvetica, sans-serif" size="2">
+<!-- #BeginLibraryItem "/Library/copyrightSuperSimple.lbi" -->&copy; 2008 NextBus Inc.<!-- #EndLibraryItem --></font>
+</p>
+</div>
+</body>
+</html>
+
+
