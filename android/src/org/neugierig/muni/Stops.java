@@ -79,7 +79,7 @@ public class Stops extends ListActivity {
 
     String query = getIntent().getExtras().getString(Backend.KEY_QUERY);
 
-    Backend backend = new Backend();
+    Backend backend = new Backend(this);
     directions = backend.fetchStops(query);
 
     setListAdapter(new StopsAdapter(this, directions));

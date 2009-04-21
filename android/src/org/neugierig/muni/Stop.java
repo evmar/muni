@@ -27,7 +27,7 @@ public class Stop extends Activity {
   }
 
   Backend.Stop fetchInfo() {
-    Backend backend = new Backend();
+    Backend backend = new Backend(this);
     // etc.
     return null;
   }

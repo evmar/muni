@@ -1,5 +1,6 @@
 package org.neugierig.muni;
 
+import android.content.*;
 import android.util.Log;
 
 import java.net.*;
@@ -48,6 +49,10 @@ public class Backend {
   public class Direction {
     public String name;
     public Stop[] stops;
+  }
+
+  Backend(Context context) {
+    mDatabase = new Database(context);
   }
 
   /*
@@ -116,8 +121,11 @@ public class Backend {
 
   String queryAPI(String query) {
     try {
-      // First consult local store, then:
-      String data = fetchURL(new URL("http://10.0.2.2:8080/api/" + query));
+      String data = mDatabase.get(query);
+      if (data == null) {
+        data = fetchURL(new URL("http://10.0.2.2:8080/api/" + query));
+        mDatabase.put(query, data);
+      }
       Log.i(TAG, data);
       return data;
     } catch (MalformedURLException e) {
@@ -142,4 +150,6 @@ public class Backend {
 
     return buffer.toString();
   }
+
+  private Database mDatabase;
 }

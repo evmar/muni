@@ -13,7 +13,7 @@ public class Routes extends ListActivity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    Backend backend = new Backend();
+    Backend backend = new Backend(this);
     routes = backend.fetchRoutes();
 
     ListAdapter adapter = new ArrayAdapter<Backend.Route>(
