@@ -26,7 +26,7 @@ public class Routes extends ListActivity {
   @Override
   protected void onListItemClick(ListView l, View v, int position, long id) {
     Backend.Route route = routes[position];
-    Intent intent = new Intent(this, Stops.class);
+    Intent intent = new Intent(this, Route.class);
     intent.putExtra(Backend.KEY_QUERY, route.url);
     startActivity(intent);
   }

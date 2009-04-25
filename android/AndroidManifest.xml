@@ -12,8 +12,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Route"
+                  android:label="@string/route">
+        </activity>
         <activity android:name=".Stops"
                   android:label="@string/stops">
+        </activity>
+        <activity android:name=".Stop"
+                  android:label="@string/stop">
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>

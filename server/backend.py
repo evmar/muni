@@ -57,9 +57,9 @@ def get_route(query):
     dirs = scraper.scrape_directions(html)
     json_data = [
         {'direction': dirs[0].name,
-         'url': dirs[0].url},
+         'url': url_to_query(dirs[0].url)},
         {'direction': dirs[1].name,
-         'url': dirs[1].url},
+         'url': url_to_query(dirs[1].url)},
     ]
     json = simplejson.dumps(json_data)
     result = APIResult(query=query, json=json)

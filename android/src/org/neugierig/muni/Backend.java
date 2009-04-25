@@ -48,7 +48,7 @@ public class Backend {
 
   public class Direction {
     public String name;
-    public Stop[] stops;
+    public String url;
   }
 
   Backend(Context context) {
@@ -92,27 +92,34 @@ public class Backend {
     }
   }
 
-  Direction[] fetchStops(String query) {
+  Direction[] fetchRoute(String query) {
     try {
       JSONArray json = new JSONArray(queryAPI(query));
       Direction[] directions = new Direction[2];
       for (int i = 0; i < 2; ++i) {
         JSONObject json_dir = json.getJSONObject(i);
-
         Direction direction = new Direction();
         direction.name = json_dir.getString("direction");
-        JSONArray json_stops = json_dir.getJSONArray("stops");
-        direction.stops = new Stop[json_stops.length()];
-
-        for (int j = 0; j < json_stops.length(); ++j) {
-          JSONObject json_stop = json_stops.getJSONObject(j);
-          direction.stops[j] = new Stop(json_stop.getString("url"),
-                                        json_stop.getString("name"));
-        }
-
+        direction.url = json_dir.getString("url");
         directions[i] = direction;
       }
       return directions;
+    } catch (JSONException e) {
+      Log.e(TAG, "json", e);
+      return null;
+    }
+  }
+
+  Stop[] fetchStops(String query) {
+    try {
+      JSONArray json = new JSONArray(queryAPI(query));
+      Stop[] stops = new Stop[json.length()];
+      for (int i = 0; i < json.length(); ++i) {
+        JSONObject json_stop = json.getJSONObject(i);
+        stops[i] = new Stop(json_stop.getString("url"),
+                            json_stop.getString("name"));
+      }
+      return stops;
     } catch (JSONException e) {
       Log.e(TAG, "json", e);
       return null;
