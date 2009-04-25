@@ -6,12 +6,13 @@ import android.widget.*;
 import android.util.Log;
 
 public class Stop extends Activity {
-  /** Called when the activity is first created. */
+  private Backend.Stop stop;
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.stop);
-    /*
+
     Backend.Stop stop = fetchInfo();
     TextView title = (TextView) findViewById(R.id.title);
     title.setText(stop.name);
@@ -23,7 +24,7 @@ public class Stop extends Activity {
         this,
         android.R.layout.simple_list_item_1,
         stop.times);
-        list.setAdapter(adapter);*/
+        list.setAdapter(adapter);
   }
 
   Backend.Stop fetchInfo() {

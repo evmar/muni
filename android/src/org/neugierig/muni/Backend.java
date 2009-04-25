@@ -48,27 +48,6 @@ public class Backend {
     mDatabase = new Database(context);
   }
 
-  /*
-  Stop fetchInfo() {
-    try {
-      JSONObject json = new JSONObject(queryAPI(""));
-
-      Stop stop = new Stop();
-      stop.direction = json.getString("direction");
-      stop.name = json.getString("name");
-      JSONArray times = json.getJSONArray("times");
-      stop.times = new Stop.Time[times.length()];
-      for (int i = 0; i < times.length(); ++i)
-        stop.times[i] = stop.new Time(times.getInt(i));
-
-      return stop;
-    } catch (JSONException e) {
-      Log.e(TAG, "json", e);
-      return null;
-    }
-  }
-  */
-
   Route[] fetchRoutes() {
     try {
       JSONArray array = new JSONArray(queryAPI(""));
@@ -111,6 +90,25 @@ public class Backend {
                             json_stop.getString("url"));
       }
       return stops;
+    } catch (JSONException e) {
+      Log.e(TAG, "json", e);
+      return null;
+    }
+  }
+
+  Stop fetchStop(String query) {
+    try {
+      JSONObject json = new JSONObject(queryAPI(query));
+
+      Stop stop = new Stop();
+      stop.direction = json.getString("direction");
+      stop.name = json.getString("name");
+      JSONArray times = json.getJSONArray("times");
+      stop.times = new Stop.Time[times.length()];
+      for (int i = 0; i < times.length(); ++i)
+        stop.times[i] = stop.new Time(times.getInt(i));
+
+      return stop;
     } catch (JSONException e) {
       Log.e(TAG, "json", e);
       return null;

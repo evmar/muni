@@ -79,3 +79,18 @@ def get_stops(query):
     result = APIResult(query=query, json=json)
     result.put()
     return result.json
+
+def get_stop(query):
+    stop = fetch_one(APIResult.all().filter('query =', query))
+    if stop:
+        # TODO check date
+        stop.delete()  #return stop.json
+
+    scraper = scrape.Wireless()
+    stop = scraper.scrape_stop(
+        fetch_wireless_url('miniPrediction.shtml?' + query))
+
+    json = simplejson.dumps(stop)
+    result = APIResult(query=query, json=json)
+    result.put()
+    return result.json

@@ -22,7 +22,9 @@ class APIQuery(webapp.RequestHandler):
         query = urllib.unquote(query)
         # if statements are from most-specific query component to least,
         # so the tests can each only examine one query param.
-        if '&d=' in query:
+        if '&s=' in query:
+            json = backend.get_stop(query)
+        elif '&d=' in query:
             json = backend.get_stops(query)
         elif '&r=' in query:
             json = backend.get_route(query)

@@ -27,9 +27,9 @@ public class Stops extends ListActivity {
 
   @Override
   protected void onListItemClick(ListView l, View v, int position, long id) {
-    /*Backend.Route route = routes[position];
-    Intent intent = new Intent(this, Stops.class);
-    intent.putExtra("org.neugierig.muni.query", route.url);
-    startActivity(intent);*/
+    Backend.Stop stop = stops[position];
+    Intent intent = new Intent(this, Stop.class);
+    intent.putExtra("org.neugierig.muni.query", stop.url);
+    startActivity(intent);
   }
 }
