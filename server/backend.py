@@ -55,18 +55,28 @@ def get_route(query):
     scraper = scrape.Wireless()
     html = fetch_wireless_url('miniDirection.shtml?' + query)
     dirs = scraper.scrape_directions(html)
-
-    stops0 = scraper.scrape_stops(fetch_wireless_url(dirs[0].url))
-    stops1 = scraper.scrape_stops(fetch_wireless_url(dirs[1].url))
-
     json_data = [
         {'direction': dirs[0].name,
-         'stops': [{'name': s.name, 'url': url_to_query(s.url)}
-                   for s in stops0]},
+         'url': dirs[0].url},
         {'direction': dirs[1].name,
-         'stops': [{'name': s.name, 'url': url_to_query(s.url)}
-                   for s in stops1]},
+         'url': dirs[1].url},
     ]
+    json = simplejson.dumps(json_data)
+    result = APIResult(query=query, json=json)
+    result.put()
+    return result.json
+
+def get_stops(query):
+    stops = fetch_one(APIResult.all().filter('query =', query))
+    if stops:
+        # TODO check date
+        return stops.json
+
+    scraper = scrape.Wireless()
+    stops = scraper.scrape_stops(fetch_wireless_url('miniStop.shtml?' + query))
+
+    json_data = [{'name': s.name, 'url': url_to_query(s.url)}
+                 for s in stops]
     json = simplejson.dumps(json_data)
     result = APIResult(query=query, json=json)
     result.put()
