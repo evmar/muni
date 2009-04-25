@@ -49,6 +49,9 @@ public class Backend {
   public class Direction {
     public String name;
     public String url;
+    public String toString() {
+      return name;
+    }
   }
 
   Backend(Context context) {
