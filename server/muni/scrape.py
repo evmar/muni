@@ -105,7 +105,7 @@ class Wireless:
         times = []
 
         # Skip to the beginning of the interesting content.
-        node = soup.find(text=re.compile(r'Next vehicles in'))
+        node = soup.find(text=re.compile(r'Next vehicles? in'))
 
         if not node:
             # No next times?
@@ -114,14 +114,15 @@ class Wireless:
         extract_time = re.compile(r'(\d+)')
 
         # Extract all the times from the page.
-        for n in node.findAllNext('div'):
+        for n in node.findAllNext('span'):
             text = n.contents[0].string
             if text is None:
                 break
-            match = extract_time.search(text)
-            if match is None:
-                break
-            times.append(int(match.group(1)))
+            # Remove nbsp.
+            text = text.replace(u'\xa0', '')
+            match = extract_time.match(text)
+            if match:
+                times.append(int(match.group(1)))
 
         return times
 
