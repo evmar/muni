@@ -6,6 +6,9 @@ import android.widget.*;
 import android.util.Log;
 
 public class Stop extends Activity {
+  // Intent extra data on the stop name.
+  public static final String KEY_NAME = "name";
+
   private Backend.Stop stop;
 
   @Override
@@ -13,9 +16,9 @@ public class Stop extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.stop);
 
-    String query = getIntent().getExtras().getString(Backend.KEY_QUERY);
-
-    stop = new Backend.Stop("FIXME", query);
+    Bundle extras = getIntent().getExtras();
+    stop = new Backend.Stop(extras.getString(KEY_NAME),
+                            extras.getString(Backend.KEY_QUERY));
 
     Backend backend = new Backend(this);
     stop.times = backend.fetchStop(stop.url);
