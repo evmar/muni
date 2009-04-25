@@ -11,17 +11,19 @@ public class Backend {
   private static final String TAG = "muni";
   public static final String KEY_QUERY = "query";
 
-  public class Stop {
-    public String url;
+  public class QueryEntry {
     public String name;
-
-    public Stop(String url, String name) {
-      this.url = url;
+    public String url;
+    public QueryEntry(String name, String url) {
       this.name = name;
+      this.url = url;
     }
-
+    public QueryEntry() {}
     public String toString() { return this.name; }
+  }
 
+  public class Stop extends QueryEntry {
+    Stop(String name, String url) { super(name, url); }
     class Time {
       public Time(int minutes) {
         this.minutes = minutes;
@@ -34,24 +36,12 @@ public class Backend {
     public Time[] times;
   }
 
-  public class Route {
-    public String url;
-    public String name;
-    public Route(String url, String name) {
-      this.url = url;
-      this.name = name;
-    }
-    public String toString() {
-      return name;
-    }
+  public class Route extends QueryEntry {
+    Route(String name, String url) { super(name, url); }
   }
 
-  public class Direction {
-    public String name;
-    public String url;
-    public String toString() {
-      return name;
-    }
+  public class Direction extends QueryEntry {
+    Direction(String name, String url) { super(name, url); }
   }
 
   Backend(Context context) {
@@ -85,8 +75,8 @@ public class Backend {
       Route[] routes = new Route[array.length()];
       for (int i = 0; i < array.length(); ++i) {
         JSONObject entry = array.getJSONObject(i);
-        routes[i] = new Route(entry.getString("url"),
-                              entry.getString("name"));
+        routes[i] = new Route(entry.getString("name"),
+                              entry.getString("url"));
       }
       return routes;
     } catch (JSONException e) {
@@ -101,10 +91,8 @@ public class Backend {
       Direction[] directions = new Direction[2];
       for (int i = 0; i < 2; ++i) {
         JSONObject json_dir = json.getJSONObject(i);
-        Direction direction = new Direction();
-        direction.name = json_dir.getString("direction");
-        direction.url = json_dir.getString("url");
-        directions[i] = direction;
+        directions[i] = new Direction(json_dir.getString("name"),
+                                      json_dir.getString("url"));
       }
       return directions;
     } catch (JSONException e) {
@@ -119,8 +107,8 @@ public class Backend {
       Stop[] stops = new Stop[json.length()];
       for (int i = 0; i < json.length(); ++i) {
         JSONObject json_stop = json.getJSONObject(i);
-        stops[i] = new Stop(json_stop.getString("url"),
-                            json_stop.getString("name"));
+        stops[i] = new Stop(json_stop.getString("name"),
+                            json_stop.getString("url"));
       }
       return stops;
     } catch (JSONException e) {

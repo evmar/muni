@@ -56,10 +56,8 @@ def get_route(query):
     html = fetch_wireless_url('miniDirection.shtml?' + query)
     dirs = scraper.scrape_directions(html)
     json_data = [
-        {'direction': dirs[0].name,
-         'url': url_to_query(dirs[0].url)},
-        {'direction': dirs[1].name,
-         'url': url_to_query(dirs[1].url)},
+        {'name': dirs[0].name, 'url': url_to_query(dirs[0].url)},
+        {'name': dirs[1].name, 'url': url_to_query(dirs[1].url)},
     ]
     json = simplejson.dumps(json_data)
     result = APIResult(query=query, json=json)
