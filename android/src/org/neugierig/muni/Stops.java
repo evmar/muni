@@ -29,7 +29,7 @@ public class Stops extends ListActivity {
   protected void onListItemClick(ListView l, View v, int position, long id) {
     Backend.Stop stop = stops[position];
     Intent intent = new Intent(this, Stop.class);
-    intent.putExtra("org.neugierig.muni.query", stop.url);
+    intent.putExtra(Backend.KEY_QUERY, stop.url);
     startActivity(intent);
   }
 }

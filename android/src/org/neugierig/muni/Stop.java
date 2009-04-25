@@ -13,24 +13,23 @@ public class Stop extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.stop);
 
-    Backend.Stop stop = fetchInfo();
+    String query = getIntent().getExtras().getString(Backend.KEY_QUERY);
+
+    stop = new Backend.Stop("FIXME", query);
+
+    Backend backend = new Backend(this);
+    stop.times = backend.fetchStop(stop.url);
+
     TextView title = (TextView) findViewById(R.id.title);
     title.setText(stop.name);
     TextView subtitle = (TextView) findViewById(R.id.subtitle);
-    subtitle.setText(stop.direction);
+    subtitle.setText("bar");
 
     ListView list = (ListView) findViewById(R.id.list);
     ListAdapter adapter = new ArrayAdapter<Backend.Stop.Time>(
         this,
         android.R.layout.simple_list_item_1,
         stop.times);
-        list.setAdapter(adapter);
+    list.setAdapter(adapter);
   }
-
-  Backend.Stop fetchInfo() {
-    Backend backend = new Backend(this);
-    // etc.
-    return null;
-  }
-
 }

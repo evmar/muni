@@ -11,7 +11,7 @@ public class Backend {
   private static final String TAG = "muni";
   public static final String KEY_QUERY = "query";
 
-  public class QueryEntry {
+  public static class QueryEntry {
     public String name;
     public String url;
     public QueryEntry(String name, String url) {
@@ -22,9 +22,9 @@ public class Backend {
     public String toString() { return this.name; }
   }
 
-  public class Stop extends QueryEntry {
+  public static class Stop extends QueryEntry {
     Stop(String name, String url) { super(name, url); }
-    class Time {
+    public static class Time {
       public Time(int minutes) {
         this.minutes = minutes;
       }
@@ -96,19 +96,15 @@ public class Backend {
     }
   }
 
-  Stop fetchStop(String query) {
+  Stop.Time[] fetchStop(String query) {
     try {
-      JSONObject json = new JSONObject(queryAPI(query));
+      JSONArray json = new JSONArray(queryAPI(query));
 
-      Stop stop = new Stop();
-      stop.direction = json.getString("direction");
-      stop.name = json.getString("name");
-      JSONArray times = json.getJSONArray("times");
-      stop.times = new Stop.Time[times.length()];
-      for (int i = 0; i < times.length(); ++i)
-        stop.times[i] = stop.new Time(times.getInt(i));
+      Stop.Time[] times = new Stop.Time[json.length()];
+      for (int i = 0; i < json.length(); ++i)
+        times[i] = new Stop.Time(json.getInt(i));
 
-      return stop;
+      return times;
     } catch (JSONException e) {
       Log.e(TAG, "json", e);
       return null;
