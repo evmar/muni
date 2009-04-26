@@ -18,13 +18,15 @@ public class Stop extends Activity {
     setContentView(R.layout.stop);
 
     Bundle extras = getIntent().getExtras();
+    String route = extras.getString(Route.KEY_ROUTE);
+    String direction = extras.getString(Route.KEY_DIRECTION);
     stop = new Backend.Stop(extras.getString(KEY_NAME),
                             extras.getString(Backend.KEY_QUERY));
 
     TextView title = (TextView) findViewById(R.id.title);
     title.setText(stop.name);
     TextView subtitle = (TextView) findViewById(R.id.subtitle);
-    subtitle.setText("bar");
+    subtitle.setText(route + "\n" + direction);
 
     refresh(false);
   }
