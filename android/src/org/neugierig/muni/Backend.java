@@ -98,9 +98,13 @@ public class Backend {
     }
   }
 
-  Stop.Time[] fetchStop(String query) {
+  Stop.Time[] fetchStop(String query, boolean force_refresh) {
     try {
-      JSONArray json = new JSONArray(queryAPI(query));
+      JSONArray json;
+      if (force_refresh)
+        json = new JSONArray(queryAPIBypassingCache(query));
+      else
+        json = new JSONArray(queryAPI(query));
 
       Stop.Time[] times = new Stop.Time[json.length()];
       for (int i = 0; i < json.length(); ++i)
@@ -114,12 +118,16 @@ public class Backend {
   }
 
   String queryAPI(String query) {
+    String data = mDatabase.get(query);
+    if (data == null)
+      data = queryAPIBypassingCache(query);
+    return data;
+  }
+
+  String queryAPIBypassingCache(String query) {
     try {
-      String data = mDatabase.get(query);
-      if (data == null) {
-        data = fetchURL(new URL("http://10.0.2.2:8080/api/" + query));
-        mDatabase.put(query, data);
-      }
+      String data = fetchURL(new URL("http://10.0.2.2:8080/api/" + query));
+      mDatabase.put(query, data);
       Log.i(TAG, data);
       return data;
     } catch (MalformedURLException e) {
