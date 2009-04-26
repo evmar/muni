@@ -13,6 +13,10 @@ public class Backend {
   // Intent extra indicating the backend query.
   public static final String KEY_QUERY = "query";
 
+  private static final String API_URL = "http://muni-api.appspot.com/api/";
+  // When testing:
+  // private static final String API_URL = "http://10.0.2.2:8080/api/";
+
   public static class QueryEntry {
     public String name;
     public String url;
@@ -126,7 +130,7 @@ public class Backend {
 
   String queryAPIBypassingCache(String query) {
     try {
-      String data = fetchURL(new URL("http://10.0.2.2:8080/api/" + query));
+      String data = fetchURL(new URL(API_URL + query));
       mDatabase.put(query, data);
       Log.i(TAG, data);
       return data;
