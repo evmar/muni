@@ -10,12 +10,7 @@ import urllib
 class MainPage(webapp.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/plain'
-        data = {
-            "direction": "Inbound to Embarcadero Station",
-            "name": "21st and Dolores",
-            "times": [2, 4, 13],
-            }
-        self.response.out.write(simplejson.dumps(data))
+        self.response.out.write("usage: http://muni-api.appspot.com/api/")
 
 class APIQuery(webapp.RequestHandler):
     def get(self, query):
