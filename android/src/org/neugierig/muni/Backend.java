@@ -1,7 +1,9 @@
 package org.neugierig.muni;
 
 import android.content.*;
+import android.os.*;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.net.*;
 import java.io.*;
@@ -51,28 +53,38 @@ public class Backend {
   }
 
   Backend(Context context) {
+    mContext = context;
     mDatabase = new Database(context);
   }
 
-  Route[] fetchRoutes() {
-    try {
-      JSONArray array = new JSONArray(queryAPI(""));
-      Route[] routes = new Route[array.length()];
-      for (int i = 0; i < array.length(); ++i) {
-        JSONObject entry = array.getJSONObject(i);
-        routes[i] = new Route(entry.getString("name"),
-                              entry.getString("url"));
-      }
-      return routes;
-    } catch (JSONException e) {
-      Log.e(TAG, "json", e);
-      return null;
-    }
+  public interface APIResultCallback {
+    public void onAPIResult(Object obj);
+  }
+
+  void fetchRoutes(final APIResultCallback callback) {
+    queryAPI("", false, new StringCallback() {
+        public void onString(String data) {
+          Object result = null;
+          try {
+            JSONArray array = new JSONArray(data);
+            Route[] routes = new Route[array.length()];
+            for (int i = 0; i < array.length(); ++i) {
+              JSONObject entry = array.getJSONObject(i);
+              routes[i] = new Route(entry.getString("name"),
+                                    entry.getString("url"));
+            }
+            result = routes;
+          } catch (JSONException e) {
+            Log.e(TAG, "json", e);
+          }
+          callback.onAPIResult(result);
+        }
+      });
   }
 
   Direction[] fetchRoute(String query) {
     try {
-      JSONArray json = new JSONArray(queryAPI(query));
+      JSONArray json = new JSONArray(queryAPIBlocking(query, false));
       Direction[] directions = new Direction[2];
       for (int i = 0; i < 2; ++i) {
         JSONObject json_dir = json.getJSONObject(i);
@@ -88,7 +100,7 @@ public class Backend {
 
   Stop[] fetchStops(String query) {
     try {
-      JSONArray json = new JSONArray(queryAPI(query));
+      JSONArray json = new JSONArray(queryAPIBlocking(query, false));
       Stop[] stops = new Stop[json.length()];
       for (int i = 0; i < json.length(); ++i) {
         JSONObject json_stop = json.getJSONObject(i);
@@ -104,11 +116,7 @@ public class Backend {
 
   Stop.Time[] fetchStop(String query, boolean force_refresh) {
     try {
-      JSONArray json;
-      if (force_refresh)
-        json = new JSONArray(queryAPIBypassingCache(query));
-      else
-        json = new JSONArray(queryAPI(query));
+      JSONArray json = new JSONArray(queryAPIBlocking(query, force_refresh));
 
       Stop.Time[] times = new Stop.Time[json.length()];
       for (int i = 0; i < json.length(); ++i)
@@ -121,15 +129,63 @@ public class Backend {
     }
   }
 
-  String queryAPI(String query) {
-    String data = mDatabase.get(query);
+  private interface StringCallback {
+    public void onString(String str);
+  }
+
+  synchronized void queryAPI(final String query,
+                             final boolean bypass_cache,
+                             final StringCallback callback) {
+    final int MSG_TOAST = 0;
+    final int MSG_RESULT = 1;
+
+    final Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+          switch (msg.what) {
+          case MSG_TOAST:
+            Toast.makeText(mContext, (String)msg.obj,
+                           Toast.LENGTH_SHORT).show();
+            break;
+          case MSG_RESULT:
+            callback.onString((String)msg.obj);
+          }
+        }
+      };
+
+    final StringCallback progress = new StringCallback() {
+        public void onString(String message) {
+          handler.sendMessage(handler.obtainMessage(MSG_TOAST,
+                                                    (Object)message));
+        }
+      };
+
+    new Thread(new Runnable() {
+      public void run() {
+        String data = Backend.this.queryAPIBlocking(query, bypass_cache,
+                                                    progress);
+        handler.sendMessage(handler.obtainMessage(MSG_RESULT, (Object)data));
+      }
+    }, "Network Fetch").start();
+  }
+
+  synchronized String queryAPIBlocking(String query, boolean bypass_cache) {
+    return queryAPIBlocking(query, bypass_cache, null);
+  }
+
+  synchronized String queryAPIBlocking(String query, boolean bypass_cache,
+                                       StringCallback progress) {
+    String data = null;
+    if (!bypass_cache)
+      mDatabase.get(query);
     if (data == null)
-      data = queryAPIBypassingCache(query);
+      data = queryAPINetworkBlocking(query, progress);
     return data;
   }
 
-  String queryAPIBypassingCache(String query) {
+  synchronized String queryAPINetworkBlocking(String query,
+                                              StringCallback progress) {
     try {
+      progress.onString("Contacting server...");
       String data = fetchURL(new URL(API_URL + query));
       mDatabase.put(query, data);
       Log.i(TAG, data);
@@ -157,5 +213,6 @@ public class Backend {
     return buffer.toString();
   }
 
+  private Context mContext;
   private Database mDatabase;
 }
