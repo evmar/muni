@@ -1,38 +1,54 @@
 package org.neugierig.muni;
 
-import android.app.ListActivity;
-import android.os.Bundle;
+import android.app.*;
 import android.content.*;
+import android.os.Bundle;
 import android.widget.*;
 import android.view.*;
 
-public class Route extends ListActivity {
+public class Route extends ListActivity implements AsyncBackendHelper.Delegate {
   public static final String KEY_ROUTE = "route";
   public static final String KEY_DIRECTION = "direction";
 
   private String mRoute;
-  private Backend.Direction[] directions;
+  private String mQuery;
+  private MuniAPI.Direction[] mDirections;
+  private AsyncBackendHelper mBackendHelper;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    String query = getIntent().getExtras().getString(Backend.KEY_QUERY);
+    mQuery = getIntent().getExtras().getString(Backend.KEY_QUERY);
     mRoute = getIntent().getExtras().getString(KEY_ROUTE);
 
-    Backend backend = new Backend(this);
-    directions = backend.fetchRoute(query);
+    mBackendHelper = new AsyncBackendHelper(this, this);
+    mBackendHelper.start();
+  }
 
-    ListAdapter adapter = new ArrayAdapter<Backend.Direction>(
+  @Override
+  public void startAsyncQuery(AsyncBackend backend) {
+    backend.fetchRoute(mQuery, mBackendHelper);
+  }
+
+  @Override
+  protected Dialog onCreateDialog(int id) {
+    return mBackendHelper.onCreateDialog(id);
+  }
+
+  @Override
+  public void onAsyncResult(Object data) {
+    mDirections = (MuniAPI.Direction[]) data;
+    ListAdapter adapter = new ArrayAdapter<MuniAPI.Direction>(
         this,
         android.R.layout.simple_list_item_1,
-        directions);
+        mDirections);
     setListAdapter(adapter);
   }
 
   @Override
   protected void onListItemClick(ListView l, View v, int position, long id) {
-    Backend.Direction direction = directions[position];
+    MuniAPI.Direction direction = mDirections[position];
     Intent intent = new Intent(this, Stops.class);
     intent.putExtra(Route.KEY_ROUTE, mRoute);
     intent.putExtra(Route.KEY_DIRECTION, direction.name);

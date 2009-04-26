@@ -1,16 +1,18 @@
 package org.neugierig.muni;
 
-import android.app.Activity;
+import android.app.*;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
 import android.util.Log;
 
-public class Stop extends Activity {
+public class Stop extends Activity implements AsyncBackendHelper.Delegate {
   // Intent extra data on the stop name.
   public static final String KEY_NAME = "name";
 
-  private Backend.Stop stop;
+  private MuniAPI.Stop mStop;
+  private AsyncBackendHelper mBackendHelper;
+  private boolean mRefresh = false;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -20,26 +22,37 @@ public class Stop extends Activity {
     Bundle extras = getIntent().getExtras();
     String route = extras.getString(Route.KEY_ROUTE);
     String direction = extras.getString(Route.KEY_DIRECTION);
-    stop = new Backend.Stop(extras.getString(KEY_NAME),
-                            extras.getString(Backend.KEY_QUERY));
+    mStop = new MuniAPI.Stop(extras.getString(KEY_NAME),
+                             extras.getString(Backend.KEY_QUERY));
 
     TextView title = (TextView) findViewById(R.id.title);
-    title.setText(stop.name);
+    title.setText(mStop.name);
     TextView subtitle = (TextView) findViewById(R.id.subtitle);
     subtitle.setText(route + "\n" + direction);
 
-    refresh(false);
+    mBackendHelper = new AsyncBackendHelper(this, this);
+    mBackendHelper.start();
   }
 
-  private void refresh(boolean force_reload) {
-    Backend backend = new Backend(this);
-    stop.times = backend.fetchStop(stop.url, force_reload);
+  @Override
+  public void startAsyncQuery(AsyncBackend backend) {
+    backend.fetchStop(mStop.url, mRefresh, mBackendHelper);
+  }
+
+  @Override
+  protected Dialog onCreateDialog(int id) {
+    return mBackendHelper.onCreateDialog(id);
+  }
+
+  @Override
+  public void onAsyncResult(Object data) {
+    mStop.times = (MuniAPI.Stop.Time[]) data;
 
     ListView list = (ListView) findViewById(R.id.list);
-    ListAdapter adapter = new ArrayAdapter<Backend.Stop.Time>(
+    ListAdapter adapter = new ArrayAdapter<MuniAPI.Stop.Time>(
         this,
         android.R.layout.simple_list_item_1,
-        stop.times);
+        mStop.times);
     list.setAdapter(adapter);
   }
 
@@ -54,7 +67,8 @@ public class Stop extends Activity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
     case R.id.refresh:
-      refresh(true);
+      mRefresh = true;
+      mBackendHelper.start();
       return true;
     }
     return false;

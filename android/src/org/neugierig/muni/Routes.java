@@ -6,72 +6,45 @@ import android.os.Bundle;
 import android.widget.*;
 import android.view.View;
 
-public class Routes extends ListActivity {
-  private Backend.Route[] mRoutes;
-  private Exception mBackendError;
+public class Routes extends ListActivity
+                    implements AsyncBackendHelper.Delegate {
+  private MuniAPI.Route[] mRoutes;
+  private AsyncBackendHelper mBackendHelper;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    startFetch();
+    mBackendHelper = new AsyncBackendHelper(this, this);
+    mBackendHelper.start();
   }
 
-  void startFetch() {
-    Backend backend = new Backend(this);
-    backend.fetchRoutes(new Backend.APIResultCallback() {
-        public void onAPIResult(Object obj) {
-          refresh((Backend.Route[]) obj);
-        }
-        public void onException(Exception exn) {
-          mBackendError = exn;
-          showDialog(0);
-        }
-      });
+  @Override
+  public void startAsyncQuery(AsyncBackend backend) {
+    backend.fetchRoutes(mBackendHelper);
   }
 
-  private void refresh(Backend.Route[] routes) {
-    mRoutes = routes;
-    ListAdapter adapter = new ArrayAdapter<Backend.Route>(
+  @Override
+  protected Dialog onCreateDialog(int id) {
+    return mBackendHelper.onCreateDialog(id);
+  }
+
+  @Override
+  public void onAsyncResult(Object data) {
+    mRoutes = (MuniAPI.Route[]) data;
+    ListAdapter adapter = new ArrayAdapter<MuniAPI.Route>(
         this,
         android.R.layout.simple_list_item_1,
-        routes);
+        mRoutes);
     setListAdapter(adapter);
   }
 
   @Override
   protected void onListItemClick(ListView l, View v, int position, long id) {
-    Backend.Route route = mRoutes[position];
+    MuniAPI.Route route = mRoutes[position];
     Intent intent = new Intent(this, Route.class);
     intent.putExtra(Route.KEY_ROUTE, route.name);
     intent.putExtra(Backend.KEY_QUERY, route.url);
     startActivity(intent);
-  }
-
-  @Override
-  protected Dialog onCreateDialog(final int id) {
-    DialogInterface.OnClickListener clicker =
-      new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int which) {
-          switch (which) {
-          case DialogInterface.BUTTON1:
-            startFetch();
-            break;
-          case DialogInterface.BUTTON2:
-            dismissDialog(id);
-            finish();
-            break;
-          }
-        }
-      };
-
-    AlertDialog dialog = (new AlertDialog.Builder(this))
-      .setTitle("Server Error")
-      .setMessage(mBackendError.getLocalizedMessage())
-      .setPositiveButton("Retry", clicker)
-      .setNegativeButton("Cancel", clicker)
-      .create();
-
-    return dialog;
   }
 }
