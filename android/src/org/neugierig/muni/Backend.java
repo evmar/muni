@@ -59,12 +59,12 @@ public class Backend {
 
   public interface APIResultCallback {
     public void onAPIResult(Object obj);
+    public void onException(Exception exn);
   }
 
   void fetchRoutes(final APIResultCallback callback) {
     queryAPI("", false, new StringCallback() {
         public void onString(String data) {
-          Object result = null;
           try {
             JSONArray array = new JSONArray(data);
             Route[] routes = new Route[array.length()];
@@ -73,11 +73,13 @@ public class Backend {
               routes[i] = new Route(entry.getString("name"),
                                     entry.getString("url"));
             }
-            result = routes;
-          } catch (JSONException e) {
-            Log.e(TAG, "json", e);
+            callback.onAPIResult(routes);
+          } catch (JSONException exn) {
+            callback.onException(exn);
           }
-          callback.onAPIResult(result);
+        }
+        public void onException(Exception exn) {
+          callback.onException(exn);
         }
       });
   }
@@ -131,6 +133,11 @@ public class Backend {
 
   private interface StringCallback {
     public void onString(String str);
+    public void onException(Exception exn);
+  }
+
+  private interface ProgressCallback {
+    public void onProgress(String str);
   }
 
   synchronized void queryAPI(final String query,
@@ -138,6 +145,7 @@ public class Backend {
                              final StringCallback callback) {
     final int MSG_TOAST = 0;
     final int MSG_RESULT = 1;
+    final int MSG_EXCEPTION = 2;
 
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -148,12 +156,16 @@ public class Backend {
             break;
           case MSG_RESULT:
             callback.onString((String)msg.obj);
+            break;
+          case MSG_EXCEPTION:
+            callback.onException((Exception)msg.obj);
+            break;
           }
         }
       };
 
-    final StringCallback progress = new StringCallback() {
-        public void onString(String message) {
+    final ProgressCallback progress = new ProgressCallback() {
+        public void onProgress(String message) {
           handler.sendMessage(handler.obtainMessage(MSG_TOAST,
                                                     (Object)message));
         }
@@ -161,42 +173,48 @@ public class Backend {
 
     new Thread(new Runnable() {
       public void run() {
-        String data = Backend.this.queryAPIBlocking(query, bypass_cache,
-                                                    progress);
-        handler.sendMessage(handler.obtainMessage(MSG_RESULT, (Object)data));
+        try {
+          String data = Backend.this.queryAPIBlocking(query, bypass_cache,
+                                                      progress);
+          handler.sendMessage(handler.obtainMessage(MSG_RESULT, (Object)data));
+        } catch (Exception exn) {
+          handler.sendMessage(handler.obtainMessage(MSG_EXCEPTION,
+                                                    (Object)exn));
+        }
       }
     }, "Network Fetch").start();
   }
 
   synchronized String queryAPIBlocking(String query, boolean bypass_cache) {
-    return queryAPIBlocking(query, bypass_cache, null);
+    try {
+      return queryAPIBlocking(query, bypass_cache, null);
+    } catch (Exception e) {
+      Log.e(TAG, e.toString());
+      return null;
+    }
   }
 
   synchronized String queryAPIBlocking(String query, boolean bypass_cache,
-                                       StringCallback progress) {
+                                       ProgressCallback progress)
+      throws MalformedURLException, IOException
+  {
     String data = null;
     if (!bypass_cache)
       mDatabase.get(query);
-    if (data == null)
-      data = queryAPINetworkBlocking(query, progress);
+    if (data == null) {
+      progress.onProgress("Contacting server...");
+      data = queryAPINetworkBlocking(query);
+    }
     return data;
   }
 
-  synchronized String queryAPINetworkBlocking(String query,
-                                              StringCallback progress) {
-    try {
-      progress.onString("Contacting server...");
-      String data = fetchURL(new URL(API_URL + query));
-      mDatabase.put(query, data);
-      Log.i(TAG, data);
-      return data;
-    } catch (MalformedURLException e) {
-      Log.e(TAG, "url", e);
-      return null;
-    } catch (IOException e) {
-      Log.e(TAG, "io", e);
-      return null;
-    }
+  synchronized String queryAPINetworkBlocking(String query)
+      throws MalformedURLException, IOException
+  {
+    String data = fetchURL(new URL(API_URL + query));
+    mDatabase.put(query, data);
+    Log.i(TAG, "Network fetch: " + data);
+    return data;
   }
 
   // It's pretty unbelievable there's no simpler way to do this.
