@@ -1,0 +1,202 @@
+
+
+
+
+
+
+
+
+<html>
+<head>
+
+<style>
+A:link {text-decoration:none}
+A:visited {text-decoration:none}
+A:hover {text-decoration:underline}
+</style>
+
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <META NAME="PalmComputingPlatform" CONTENT="true">
+   <META NAME="HandHeldFriendly" CONTENT="True">
+   
+   <meta name = "viewport" content = "width = device-width, user-scalable = yes" />
+
+<title>
+  NextBus
+
+: 3-Jackson, Inbound to Market & Sansome, 
+ Jackson St & Baker St
+
+</title>
+</head>
+
+<script>
+  var pageLoadTime = (new Date()).getTime();
+  var reloading = false;
+
+  // Refresh the page every 30 seconds. This cant just be done using a
+  // refresh in the header tag because it doesnt work after iPhone
+  // turned off and then started again. 
+  // Note: This causes iPhones at least to not auto-turn off. Instead,
+  // users need to manually turn off their device. But it is nice not having
+  // to hit the refresh button all the time. 
+  // Note: The reason calling reloadIfNeeded() every second is so that
+  // if phone turned on and user goes to the page it will realize right
+  // away that it should reload instead of waiting 30 seconds.
+  // Note: reason need to check to see if already reloading is because
+  // if connection is lost reloadIfNeeded() is still called every 300msec.
+  // If would call reload() every 300msec then browser gets confused and it
+  // can hang an iPhone completely!
+  function reloadIfNeeded() {
+    var currentTime = (new Date()).getTime();
+    if (currentTime > pageLoadTime + 30*1000 && reloading==false) {
+      reloading = true;
+      location.reload();
+    }
+  }
+
+  setInterval('reloadIfNeeded()', 300);
+</script>
+
+<body bgcolor="#FFFFFF">
+  <center>
+  <img src="/logos/nextbusSimple.gif" alt="(NextBus Logo)" hspace=8 width="132" height="42"><br>
+  <font face="Verdana, Arial, Helvetica, sans-serif">
+
+  <br>
+  
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr> 
+      <td align="right"> 
+        <font size="2">Agency:&nbsp;</font>
+      </td>
+      <td><font size="2"><b>SF Muni</b></font></td>
+    </tr>
+    <tr> 
+      <td align="right"> 
+        <font size="2">Route:&nbsp;</font>
+      </td>
+      <td><font size="2"><b>3-Jackson</b></font></td>
+    </tr>
+    
+    <tr> 
+      <td align="right"> 
+        <font size="2">Direction:&nbsp;</font>
+      </td>
+      <td><font size="2"><b>Inbound to Market & Sansome</b></font></td>
+    </tr>
+    <tr> 
+      <td align="right"> 
+        <font size="2">Stop:&nbsp;</font>
+      </td>
+      <td><font size="2"><b>Jackson St & Baker St</b> 
+	   (#15143) 
+	  </font></td>
+	</tr>
+    
+  </table>
+  
+     <br>
+     
+
+      
+       <b>Note: Budget impacts on<br>fares &amp; service:<br>Visit SFMTA.COM or<br>call 311 for info. </b><br><br>
+     Next vehicles in:<br>
+     
+        <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td>
+            
+	  	  
+        <table cellpadding="0" cellspacing="0" border="0" align="center">
+          
+          <tr>
+		  
+		  <td valign="baseline" align="right"> 
+            <span style="font-size: 38px; font-weight: bold;">&nbsp;13</span>
+          </td>
+		  <td valign="baseline">
+		    <span style="font-size: 24px; font-weight: bold;">&nbsp;minutes</span>
+		  </td>
+		  
+		  <td valign="baseline"> 
+            
+             
+            
+          </td>
+		 </tr>
+		
+          <tr>
+		  
+		  <td valign="baseline" align="right"> 
+            <span style="font-size: 24px; font-weight: bold;">&nbsp;33</span>
+          </td>
+		  <td valign="baseline">
+		    <span style="font-size: 24px; font-weight: bold;">&nbsp;minutes</span>
+		  </td>
+		  
+		  <td valign="baseline"> 
+            
+             
+            
+          </td>
+		 </tr>
+		
+          <tr>
+		  
+		  <td valign="baseline" align="right"> 
+            <span style="font-size: 24px; font-weight: bold;">&nbsp;53</span>
+          </td>
+		  <td valign="baseline">
+		    <span style="font-size: 24px; font-weight: bold;">&nbsp;minutes</span>
+		  </td>
+		  
+		  <td valign="baseline"> 
+            
+             
+            
+          </td>
+		 </tr>
+		
+	  </table>
+
+		  </td>
+		</tr>
+		 
+      </table> 
+	  
+
+  </font>
+  </center>
+
+<div align="center">
+
+<font face="Arial, Helvetica, sans-serif" size="2">
+  <br><br>Valid as of 9:37 PM Sunday, April 26<br><br>
+</font>
+
+  <div style="font-family: Arial, Helvetica, sans-serif; font-size: 20px; line-height: 28px">
+  <a href="/wireless/miniPrediction.shtml?a=sf-muni&r=3&d=03_IB1_M&s=5143&soCacheNotUsed=1240807071368">Refresh</a><br>
+
+  <a href="/wireless/miniRoute.shtml?a=sf-muni">Select another route</a><br>
+  <a href="/wireless/miniDirection.shtml?a=sf-muni&r=3">Select another direction</a><br>
+  <a href="/wireless/miniStop.shtml?a=sf-muni&r=3&d=03_IB1_M">Select another stop</a><br>
+
+  </div>
+  <p><font face="Arial, Helvetica, sans-serif" size="2">
+<!-- #BeginLibraryItem "/Library/copyrightSuperSimple.lbi" -->&copy; 2009 NextBus Inc.<!-- #EndLibraryItem --></font>
+</p>
+</div>
+</body>
+</html>
+
+
+
+<!-- Following is for Google Analytics web hit tracking -->
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-370304-1";
+urchinTracker();
+</script>
+

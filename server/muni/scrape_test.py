@@ -61,5 +61,9 @@ class TestWirelessScrape(unittest.TestCase):
         times = self.scraper.scrape_stop(open('test/wireless/miniPrediction.shtml?a=sf-muni&r=N&d=N__IB3&s=5212'))
         self.assertEqual([2], times)
 
+    def testStop3(self):
+        times = self.scraper.scrape_stop(open('test/wireless/miniPrediction.shtml?a=sf-muni&r=3&d=03_IB1_M&s=5143'))
+        self.assertEqual([13,33,53], times)
+
 if __name__ == '__main__':
     unittest.main()
