@@ -49,10 +49,18 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate {
     mStop.times = (MuniAPI.Stop.Time[]) data;
 
     ListView list = (ListView) findViewById(R.id.list);
-    ListAdapter adapter = new ArrayAdapter<MuniAPI.Stop.Time>(
-        this,
-        android.R.layout.simple_list_item_1,
-        mStop.times);
+    ListAdapter adapter;
+    if (mStop.times.length > 0) {
+      adapter = new ArrayAdapter<MuniAPI.Stop.Time>(
+          this,
+          android.R.layout.simple_list_item_1,
+          mStop.times);
+    } else {
+      adapter = new ArrayAdapter<String>(
+          this,
+          android.R.layout.simple_list_item_1,
+          new String[] {"(no arrivals predicted)"});
+    }
     list.setAdapter(adapter);
   }
 
