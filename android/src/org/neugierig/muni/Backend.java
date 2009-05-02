@@ -14,8 +14,8 @@ public class Backend {
   // Intent extra indicating the backend query.
   public static final String KEY_QUERY = "query";
 
-  public interface ProgressListener {
-    public void onProgress(String str);
+  public static interface NetworkFetchListener {
+    public void onNetworkFetch();
   }
 
   Backend(Context context) {
@@ -23,37 +23,35 @@ public class Backend {
     mDatabase = new Database(context);
   }
 
-  MuniAPI.Route[] fetchRoutes(ProgressListener progress)
+  void setNetworkFetchListener(NetworkFetchListener l) {
+    mNetworkFetchListener = l;
+  }
+
+  MuniAPI.Route[] fetchRoutes()
       throws MalformedURLException, IOException, JSONException
   {
-    return MuniAPI.parseRoutes(queryAPI("", false, progress));
+    return MuniAPI.parseRoutes(queryAPI("", false));
   }
 
-  MuniAPI.Direction[] fetchRoute(String query, ProgressListener progress)
+  MuniAPI.Direction[] fetchRoute(String query)
       throws MalformedURLException, IOException, JSONException
   {
-    return MuniAPI.parseRoute(queryAPI(query, false, progress));
+    return MuniAPI.parseRoute(queryAPI(query, false));
   }
 
-  MuniAPI.Stop[] fetchStops(String query, ProgressListener progress)
+  MuniAPI.Stop[] fetchStops(String query)
       throws MalformedURLException, IOException, JSONException
   {
-    return MuniAPI.parseStops(queryAPI(query, false, progress));
+    return MuniAPI.parseStops(queryAPI(query, false));
   }
 
-  MuniAPI.Stop.Time[] fetchStop(String query, boolean force_refresh,
-                                ProgressListener progress)
+  MuniAPI.Stop.Time[] fetchStop(String query, boolean force_refresh)
       throws MalformedURLException, IOException, JSONException
   {
-    return MuniAPI.parseStop(queryAPI(query, force_refresh, progress));
+    return MuniAPI.parseStop(queryAPI(query, force_refresh));
   }
 
-  private interface StringCallback {
-    public void onString(String str);
-    public void onException(Exception exn);
-  }
-
-  String queryAPI(String query, boolean reload, ProgressListener progress)
+  String queryAPI(String query, boolean reload)
       throws MalformedURLException, IOException
   {
     String data = null;
@@ -62,7 +60,8 @@ public class Backend {
       data = mDatabase.get(query);
 
     if (data == null) {
-      progress.onProgress("Contacting server...");
+      if (mNetworkFetchListener != null)
+        mNetworkFetchListener.onNetworkFetch();
       data = MuniAPI.queryNetwork(query);
       Log.i(TAG, "Network fetch: " + data);
       mDatabase.put(query, data);
@@ -73,4 +72,5 @@ public class Backend {
 
   private Context mContext;
   private Database mDatabase;
+  private NetworkFetchListener mNetworkFetchListener;
 }

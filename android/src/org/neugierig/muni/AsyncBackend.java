@@ -9,11 +9,13 @@ class AsyncBackend {
   public interface APIResultCallback {
     public void onAPIResult(Object obj);
     public void onException(Exception exn);
+
+    // Notification that a network fetch is beginning.
+    public void onNetworkFetch();
   }
 
   public interface BackendQuery {
-    public Object runQuery(Backend backend, Backend.ProgressListener progress)
-        throws Exception;
+    public Object runQuery(Backend backend) throws Exception;
   }
 
   Context mContext;
@@ -26,11 +28,8 @@ class AsyncBackend {
 
   public void fetchRoutes(APIResultCallback callback) {
     queryBackend(new BackendQuery() {
-        public Object runQuery(Backend backend,
-                               Backend.ProgressListener progress)
-            throws Exception
-        {
-          return backend.fetchRoutes(progress);
+        public Object runQuery(Backend backend) throws Exception {
+          return backend.fetchRoutes();
         }
       },
       callback);
@@ -38,11 +37,8 @@ class AsyncBackend {
 
   public void fetchRoute(final String query, APIResultCallback callback) {
     queryBackend(new BackendQuery() {
-        public Object runQuery(Backend backend,
-                               Backend.ProgressListener progress)
-            throws Exception
-        {
-          return backend.fetchRoute(query, progress);
+        public Object runQuery(Backend backend) throws Exception {
+          return backend.fetchRoute(query);
         }
       },
       callback);
@@ -50,11 +46,8 @@ class AsyncBackend {
 
   public void fetchStops(final String query, APIResultCallback callback) {
     queryBackend(new BackendQuery() {
-        public Object runQuery(Backend backend,
-                               Backend.ProgressListener progress)
-            throws Exception
-        {
-          return backend.fetchStops(query, progress);
+        public Object runQuery(Backend backend) throws Exception {
+          return backend.fetchStops(query);
         }
       },
       callback);
@@ -63,11 +56,8 @@ class AsyncBackend {
   public void fetchStop(final String query, final boolean reload,
                         APIResultCallback callback) {
     queryBackend(new BackendQuery() {
-        public Object runQuery(Backend backend,
-                               Backend.ProgressListener progress)
-            throws Exception
-        {
-          return backend.fetchStop(query, reload, progress);
+        public Object runQuery(Backend backend) throws Exception {
+          return backend.fetchStop(query, reload);
         }
       },
       callback);
@@ -75,16 +65,15 @@ class AsyncBackend {
 
   synchronized private void queryBackend(final BackendQuery query,
                                          final APIResultCallback callback) {
-    final int MSG_TOAST = 0;
+    final int MSG_NETWORK_FETCH = 0;
     final int MSG_RESULT = 1;
     final int MSG_EXCEPTION = 2;
 
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
           switch (msg.what) {
-          case MSG_TOAST:
-            Toast.makeText(mContext, (String)msg.obj,
-                           Toast.LENGTH_SHORT).show();
+          case MSG_NETWORK_FETCH:
+            callback.onNetworkFetch();
             break;
           case MSG_RESULT:
             callback.onAPIResult(msg.obj);
@@ -96,17 +85,16 @@ class AsyncBackend {
         }
       };
 
+    mBackend.setNetworkFetchListener(new Backend.NetworkFetchListener() {
+        public void onNetworkFetch() {
+          handler.sendMessage(handler.obtainMessage(MSG_NETWORK_FETCH));
+        }
+      });
+
     Thread thread = new Thread(new Runnable() {
       public void run() {
         try {
-          Object result = query.runQuery(
-              mBackend,
-              new Backend.ProgressListener() {
-                public void onProgress(String message) {
-                  handler.sendMessage(handler.obtainMessage(MSG_TOAST,
-                                                            (Object)message));
-                }
-              });
+          Object result = query.runQuery(mBackend);
           handler.sendMessage(handler.obtainMessage(MSG_RESULT, result));
         } catch (Exception exn) {
           handler.sendMessage(handler.obtainMessage(MSG_EXCEPTION,
