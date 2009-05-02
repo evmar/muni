@@ -8,6 +8,9 @@ import java.net.*;
 import java.io.*;
 import org.json.*;
 
+// The Backend knows how to query both the local database and the
+// remote server for MUNI data.  Its calls are all blocking and so
+// it's typically used from a background thread.
 public class Backend {
   // Tag for logging.
   private static final String TAG = "muni";

@@ -5,21 +5,28 @@ import android.os.*;
 import android.widget.Toast;
 import org.json.*;
 
+// The AsyncBackend provides an asynchronous interface to the
+// (blocking) Backend.  Its callbacks always come back on the thread
+// it's queried from, but internally it's running the queries on a
+// separate thread.
 class AsyncBackend {
   public interface APIResultCallback {
+    // A query can either result in a positive response or an
+    // exception.  Any exception that happens in the backend is
+    // proxied over to onException here.
     public void onAPIResult(Object obj);
     public void onException(Exception exn);
 
     // Notification that a network fetch is beginning.
+    // Used to display a progress dialog.
     public void onNetworkFetch();
   }
 
-  public interface BackendQuery {
+  // A bit of Java callback snafu workarounds.  Lets us paramaterize a
+  // with a bit of code that runs in the backend-querying thread.
+  private interface BackendQuery {
     public Object runQuery(Backend backend) throws Exception;
   }
-
-  Context mContext;
-  Backend mBackend;
 
   AsyncBackend(Context context) {
     mContext = context;
@@ -63,8 +70,13 @@ class AsyncBackend {
       callback);
   }
 
-  synchronized private void queryBackend(final BackendQuery query,
-                                         final APIResultCallback callback) {
+  // All the thread magic happens in this single function, which
+  // hopefully helps reasoning about what needs locks.  TODO: maybe
+  // lock around not having two pending queries out at once, which
+  // doesn't make sense from an API perspective but could race in
+  // mBackend.
+  private void queryBackend(final BackendQuery query,
+                            final APIResultCallback callback) {
     final int MSG_NETWORK_FETCH = 0;
     final int MSG_RESULT = 1;
     final int MSG_EXCEPTION = 2;
@@ -105,5 +117,6 @@ class AsyncBackend {
     thread.start();
   }
 
-
+  private Context mContext;
+  private Backend mBackend;
 }

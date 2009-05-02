@@ -12,6 +12,7 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate {
 
   private MuniAPI.Stop mStop;
   private AsyncBackendHelper mBackendHelper;
+  // Whether to force going out to the network for a query.
   private boolean mRefresh = false;
 
   @Override

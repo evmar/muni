@@ -3,9 +3,18 @@ package org.neugierig.muni;
 import android.app.*;
 import android.content.*;
 
+// AsyncBackendHelper provides a UI-side counterpart to AsyncBackend.
+// It has hooks into (and expects callbacks from) an Activity and
+// manages displaying the "Network processing..." and "Network Error"
+// dialogs.
 class AsyncBackendHelper implements AsyncBackend.APIResultCallback {
   public interface Delegate {
+    // More Java callback snafu workaround; lets the caller pass a bit
+    // of code to run against the AsyncBackend.
     public void startAsyncQuery(AsyncBackend backend);
+
+    // Return the result of a query.  If there was an error, it will
+    // never get called.
     public void onAsyncResult(Object obj);
   }
 
