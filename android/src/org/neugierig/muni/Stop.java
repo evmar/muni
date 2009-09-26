@@ -6,7 +6,8 @@ import android.view.*;
 import android.widget.*;
 import android.util.Log;
 
-public class Stop extends Activity implements AsyncBackendHelper.Delegate {
+public class Stop extends Activity implements AsyncBackendHelper.Delegate,
+                                              View.OnClickListener {
   // Intent extra data on the stop name.
   public static final String KEY_NAME = "name";
 
@@ -14,12 +15,16 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate {
   private AsyncBackendHelper mBackendHelper;
   // Whether to force going out to the network for a query.
   private boolean mRefresh = false;
+  private StarDBAdapter mStarDB;
+  private CheckBox mStarView;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.stop);
+
+    mStarDB = new StarDBAdapter(this);
 
     Bundle extras = getIntent().getExtras();
     String route = extras.getString(Route.KEY_ROUTE);
@@ -31,6 +36,10 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate {
     title.setText(mStop.name);
     TextView subtitle = (TextView) findViewById(R.id.subtitle);
     subtitle.setText(route + "\n" + direction);
+
+    mStarView = (CheckBox) findViewById(R.id.star);
+    mStarView.setOnClickListener(this);
+    mStarView.setChecked(mStarDB.getStarred(mStop.url));
 
     mBackendHelper = new AsyncBackendHelper(this, this);
     mBackendHelper.start();
@@ -64,6 +73,15 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate {
           new String[] {"(no arrivals predicted)"});
     }
     list.setAdapter(adapter);
+  }
+
+  @Override
+  public void onClick(View view) {
+    switch (view.getId()) {
+    case R.id.star:
+      mStarDB.setStarred(mStop.url, null, mStarView.isChecked());
+      break;
+    }
   }
 
   @Override
