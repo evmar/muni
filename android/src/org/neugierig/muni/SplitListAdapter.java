@@ -32,6 +32,7 @@ class SplitListAdapter extends BaseAdapter {
       return true;
     return position <= mSeparatorPos;
   }
+  // Translate a global position to a position within the second list.
   int translateList2Position(int position) {
     return position - mSeparatorPos - 1;
   }
@@ -71,14 +72,14 @@ class SplitListAdapter extends BaseAdapter {
   }
   @Override public int getItemViewType(int pos) {
     if (!hasList2())
-      return mList1.getItemViewType(pos);
+      return mList1.getItemViewType(pos) + 1;
 
     if (pos < mSeparatorPos) {
-      return mList1.getItemViewType(pos);
+      return mList1.getItemViewType(pos) + 1;
     } else if (pos == mSeparatorPos) {
-      return IGNORE_ITEM_VIEW_TYPE;
+      return 0;
     } else {
-      return mList2.getItemViewType(translateList2Position(pos));
+      return mList2.getItemViewType(translateList2Position(pos)) + 1;
     }
   }
   @Override public View getView(int pos, View view, ViewGroup parent) {
@@ -102,7 +103,7 @@ class SplitListAdapter extends BaseAdapter {
   }
   @Override public int getViewTypeCount() {
     if (!hasList2())
-      return mList1.getViewTypeCount();
+      return mList1.getViewTypeCount() + 1;
 
     return mList1.getViewTypeCount() + 1 + mList2.getViewTypeCount();
   }
