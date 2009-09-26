@@ -4,7 +4,7 @@ import android.app.*;
 import android.content.*;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.*;
 import android.widget.*;
 
 public class Routes extends ListActivity
@@ -15,6 +15,7 @@ public class Routes extends ListActivity
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
+    requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     super.onCreate(savedInstanceState);
 
     ListAdapter foo = new ArrayAdapter<String>(

@@ -17,10 +17,17 @@ public class Route extends ListActivity implements AsyncBackendHelper.Delegate {
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
+    requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     super.onCreate(savedInstanceState);
 
     mQuery = getIntent().getExtras().getString(Backend.KEY_QUERY);
     mRoute = getIntent().getExtras().getString(KEY_ROUTE);
+
+    ListAdapter adapter = new ArrayAdapter<String>(
+        this,
+        android.R.layout.simple_list_item_1,
+        new String[] {});
+    setListAdapter(adapter);
 
     mBackendHelper = new AsyncBackendHelper(this, this);
     mBackendHelper.start();

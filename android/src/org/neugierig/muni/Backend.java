@@ -17,17 +17,9 @@ public class Backend {
   // Intent extra indicating the backend query.
   public static final String KEY_QUERY = "query";
 
-  public static interface NetworkFetchListener {
-    public void onNetworkFetch();
-  }
-
   Backend(Context context) {
     mContext = context;
     mDatabase = new Database(context);
-  }
-
-  void setNetworkFetchListener(NetworkFetchListener l) {
-    mNetworkFetchListener = l;
   }
 
   MuniAPI.Route[] fetchRoutes()
@@ -63,8 +55,6 @@ public class Backend {
       data = mDatabase.get(query);
 
     if (data == null) {
-      if (mNetworkFetchListener != null)
-        mNetworkFetchListener.onNetworkFetch();
       data = MuniAPI.queryNetwork(query);
       Log.i(TAG, "Network fetch: " + data);
       mDatabase.put(query, data);
@@ -75,5 +65,4 @@ public class Backend {
 
   private Context mContext;
   private Database mDatabase;
-  private NetworkFetchListener mNetworkFetchListener;
 }

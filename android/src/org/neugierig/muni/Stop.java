@@ -17,6 +17,7 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate {
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
+    requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.stop);
 

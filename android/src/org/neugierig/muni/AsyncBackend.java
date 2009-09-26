@@ -16,10 +16,6 @@ class AsyncBackend {
     // proxied over to onException here.
     public void onAPIResult(Object obj);
     public void onException(Exception exn);
-
-    // Notification that a network fetch is beginning.
-    // Used to display a progress dialog.
-    public void onNetworkFetch();
   }
 
   // A bit of Java callback snafu workarounds.  Lets us paramaterize a
@@ -77,16 +73,12 @@ class AsyncBackend {
   // mBackend.
   private void queryBackend(final BackendQuery query,
                             final APIResultCallback callback) {
-    final int MSG_NETWORK_FETCH = 0;
-    final int MSG_RESULT = 1;
-    final int MSG_EXCEPTION = 2;
+    final int MSG_RESULT = 0;
+    final int MSG_EXCEPTION = 1;
 
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
           switch (msg.what) {
-          case MSG_NETWORK_FETCH:
-            callback.onNetworkFetch();
-            break;
           case MSG_RESULT:
             callback.onAPIResult(msg.obj);
             break;
@@ -96,12 +88,6 @@ class AsyncBackend {
           }
         }
       };
-
-    mBackend.setNetworkFetchListener(new Backend.NetworkFetchListener() {
-        public void onNetworkFetch() {
-          handler.sendMessage(handler.obtainMessage(MSG_NETWORK_FETCH));
-        }
-      });
 
     Thread thread = new Thread(new Runnable() {
       public void run() {

@@ -2,11 +2,11 @@ package org.neugierig.muni;
 
 import android.app.*;
 import android.content.*;
+import android.util.Log;
 
 // AsyncBackendHelper provides a UI-side counterpart to AsyncBackend.
 // It has hooks into (and expects callbacks from) an Activity and
-// manages displaying the "Network processing..." and "Network Error"
-// dialogs.
+// manages displaying the "Network Error" dialog.
 class AsyncBackendHelper implements AsyncBackend.APIResultCallback {
   public interface Delegate {
     // More Java callback snafu workaround; lets the caller pass a bit
@@ -25,38 +25,25 @@ class AsyncBackendHelper implements AsyncBackend.APIResultCallback {
   }
 
   public void start() {
+    mActivity.setProgressBarIndeterminateVisibility(true);
     mDelegate.startAsyncQuery(mBackend);
   }
 
   @Override
-  public void onNetworkFetch() {
-    mActivity.showDialog(PROGRESS_DIALOG_ID);
-  }
-
-  @Override
   public void onAPIResult(Object obj) {
-    mActivity.removeDialog(PROGRESS_DIALOG_ID);
+    mActivity.setProgressBarIndeterminateVisibility(false);
     mDelegate.onAsyncResult(obj);
   }
 
   @Override
   public void onException(Exception exn) {
-    mActivity.removeDialog(PROGRESS_DIALOG_ID);
+    mActivity.setProgressBarIndeterminateVisibility(false);
     mBackendError = exn;
     mActivity.showDialog(ERROR_DIALOG_ID);
   }
 
   public Dialog onCreateDialog(int id) {
     switch (id) {
-      case PROGRESS_DIALOG_ID: {
-        ProgressDialog dialog = new ProgressDialog(mActivity);
-        dialog.setTitle("Network Request");
-        dialog.setMessage("Fetching data...");
-        dialog.setIndeterminate(true);
-        dialog.setCancelable(true);
-        return dialog;
-      }
-
       case ERROR_DIALOG_ID: {
         DialogInterface.OnClickListener clicker =
             new DialogInterface.OnClickListener() {
@@ -86,7 +73,6 @@ class AsyncBackendHelper implements AsyncBackend.APIResultCallback {
   }
 
   private static final int ERROR_DIALOG_ID = 0;     // XXX how to choose?
-  private static final int PROGRESS_DIALOG_ID = 1;  // XXX how to choose?
   private Activity mActivity;
   private Delegate mDelegate;
   private AsyncBackend mBackend;
