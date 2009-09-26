@@ -18,18 +18,24 @@
        android:orientation="vertical"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
+       android:layout_weight="1"
        android:padding="8sp"
        >
       <!-- TODO: use the system style, rather than hardcoding in white. -->
       <TextView android:id="@+id/title"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:textSize="24sp"
-                android:textColor="#fff"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:shadowColor="#BB000000"
+                android:shadowRadius="2.75"
+                android:maxLines="1"
+                android:ellipsize="end"
                 />
       <TextView android:id="@+id/subtitle"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:maxLines="2"
+                android:ellipsize="end"
                 />
     </LinearLayout>
 
@@ -37,7 +43,7 @@
     <!-- TODO: right-align this -->
     <CheckBox android:id="@+id/star"
               style="?android:attr/starStyle"
-              android:layout_width="fill_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               />
   </LinearLayout>
