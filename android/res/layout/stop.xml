@@ -4,24 +4,44 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               >
+  <!-- Heading -->
   <LinearLayout
-     android:orientation="vertical"
+     android:orientation="horizontal"
      android:layout_width="fill_parent"
      android:layout_height="wrap_content"
-     android:padding="8sp"
+     android:gravity="center_vertical"
+     android:background="@android:drawable/title_bar_tall"
      >
-    <!-- TODO: use the system style, rather than hardcoding in white. -->
-    <TextView android:id="@+id/title"
+
+    <!-- Stop name and info -->
+    <LinearLayout
+       android:orientation="vertical"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:padding="8sp"
+       >
+      <!-- TODO: use the system style, rather than hardcoding in white. -->
+      <TextView android:id="@+id/title"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:textSize="24sp"
+                android:textColor="#fff"
+                />
+      <TextView android:id="@+id/subtitle"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                />
+    </LinearLayout>
+
+    <!-- Star widget -->
+    <!-- TODO: right-align this -->
+    <CheckBox android:id="@+id/star"
+              style="?android:attr/starStyle"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:textSize="24sp"
-              android:textColor="#fff"
-              />
-    <TextView android:id="@+id/subtitle"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
+              android:layout_height="wrap_content"
               />
   </LinearLayout>
+
   <ListView android:id="@+id/list"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
