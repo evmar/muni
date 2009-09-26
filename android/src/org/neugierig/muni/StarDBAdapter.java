@@ -11,7 +11,7 @@ public class StarDBAdapter {
 
   private static class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "stops";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     DatabaseHelper(Context context) {
       super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -19,7 +19,8 @@ public class StarDBAdapter {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-      db.execSQL("create table stars (query text primary key, json text);");
+      db.execSQL("create table stars (_id integer primary key autoincrement, " +
+                 "query text, json text);");
     }
 
     @Override
@@ -45,7 +46,7 @@ public class StarDBAdapter {
 
   public void setStarred(String query, String json, boolean starred) {
     if (starred) {
-      mDb.execSQL("insert or replace into stars values (?, ?)",
+      mDb.execSQL("insert or replace into stars (query, json) values (?, ?)",
                   new Object[] {query, json});
     } else {
       mDb.execSQL("delete from stars where query=?",
@@ -54,7 +55,7 @@ public class StarDBAdapter {
   }
 
   public Cursor fetchAll() {
-    return mDb.query("stars", new String[] {"query"},
+    return mDb.query("stars", new String[] {"_id", "query", "json"},
                      null, null, null, null, null);
   }
 }

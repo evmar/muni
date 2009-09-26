@@ -2,6 +2,7 @@ package org.neugierig.muni;
 
 import android.app.*;
 import android.content.*;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
@@ -12,22 +13,34 @@ public class Routes extends ListActivity
   private MuniAPI.Route[] mRoutes;
   private SplitListAdapter mSplitListAdapter;
   private AsyncBackendHelper mBackendHelper;
+  private StarDBAdapter mStarDB;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     super.onCreate(savedInstanceState);
 
-    ListAdapter foo = new ArrayAdapter<String>(
-        this,
-        android.R.layout.simple_list_item_1,
-        new String[] { "(Bookmarks will", "go here)" });
+    mStarDB = new StarDBAdapter(this);
+
     mSplitListAdapter = new SplitListAdapter(this, "All Routes");
-    mSplitListAdapter.setAdapter1(foo);
+    fillStarred();
     setListAdapter(mSplitListAdapter);
 
     mBackendHelper = new AsyncBackendHelper(this, this);
     mBackendHelper.start();
+  }
+
+  private void fillStarred() {
+    Cursor cursor = mStarDB.fetchAll();
+    startManagingCursor(cursor);
+
+    String[] from = new String[]{"query"};
+    int[] to = new int[]{android.R.id.text1};
+    SimpleCursorAdapter notes = new SimpleCursorAdapter(
+        this,
+        android.R.layout.simple_list_item_1,
+        cursor, from, to);
+    mSplitListAdapter.setAdapter1(notes);
   }
 
   @Override
