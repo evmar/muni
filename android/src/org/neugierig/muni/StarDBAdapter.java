@@ -11,7 +11,7 @@ public class StarDBAdapter {
 
   private static class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "stops";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
 
     DatabaseHelper(Context context) {
       super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -20,7 +20,7 @@ public class StarDBAdapter {
     @Override
     public void onCreate(SQLiteDatabase db) {
       db.execSQL("create table stars (_id integer primary key autoincrement, " +
-                 "query text, json text);");
+                 "query text, route text, direction text, name text);");
     }
 
     @Override
@@ -44,18 +44,22 @@ public class StarDBAdapter {
     return starred;
   }
 
-  public void setStarred(String query, String json, boolean starred) {
-    if (starred) {
-      mDb.execSQL("insert or replace into stars (query, json) values (?, ?)",
-                  new Object[] {query, json});
-    } else {
-      mDb.execSQL("delete from stars where query=?",
-                  new Object[] {query});
-    }
+  public void setStarred(MuniAPI.Stop stop, String route, String direction) {
+    ContentValues values = new ContentValues();
+    values.put("query", stop.url);
+    values.put("name", stop.name);
+    values.put("route", route);
+    values.put("direction", direction);
+    mDb.replace("stars", null, values);
+  }
+
+  public void unStar(MuniAPI.Stop stop) {
+    mDb.execSQL("delete from stars where query=?", new Object[] {stop.url});
   }
 
   public Cursor fetchAll() {
-    return mDb.query("stars", new String[] {"_id", "query", "json"},
+    return mDb.query("stars",
+                     new String[] {"_id", "query", "route", "direction", "name"},
                      null, null, null, null, null);
   }
 }

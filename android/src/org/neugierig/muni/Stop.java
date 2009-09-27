@@ -12,6 +12,8 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate,
   public static final String KEY_NAME = "name";
 
   private MuniAPI.Stop mStop;
+  private String mRoute;
+  private String mDirection;
   private AsyncBackendHelper mBackendHelper;
   // Whether to force going out to the network for a query.
   private boolean mRefresh = false;
@@ -27,15 +29,15 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate,
     mStarDB = new StarDBAdapter(this);
 
     Bundle extras = getIntent().getExtras();
-    String route = extras.getString(Route.KEY_ROUTE);
-    String direction = extras.getString(Route.KEY_DIRECTION);
+    mRoute = extras.getString(Route.KEY_ROUTE);
+    mDirection = extras.getString(Route.KEY_DIRECTION);
     mStop = new MuniAPI.Stop(extras.getString(KEY_NAME),
                              extras.getString(Backend.KEY_QUERY));
 
     TextView title = (TextView) findViewById(R.id.title);
     title.setText(mStop.name);
     TextView subtitle = (TextView) findViewById(R.id.subtitle);
-    subtitle.setText(route + "\n" + direction);
+    subtitle.setText(mRoute + ": " + mDirection);
 
     mStarView = (CheckBox) findViewById(R.id.star);
     mStarView.setOnClickListener(this);
@@ -79,7 +81,10 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate,
   public void onClick(View view) {
     switch (view.getId()) {
     case R.id.star:
-      mStarDB.setStarred(mStop.url, null, mStarView.isChecked());
+      if (mStarView.isChecked())
+        mStarDB.setStarred(mStop, mRoute, mDirection);
+      else
+        mStarDB.unStar(mStop);
       break;
     }
   }
