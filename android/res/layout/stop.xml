@@ -40,7 +40,6 @@
     </LinearLayout>
 
     <!-- Star widget -->
-    <!-- TODO: right-align this -->
     <CheckBox android:id="@+id/star"
               style="?android:attr/starStyle"
               android:layout_width="wrap_content"

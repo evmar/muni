@@ -80,12 +80,12 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate,
   @Override
   public void onClick(View view) {
     switch (view.getId()) {
-    case R.id.star:
-      if (mStarView.isChecked())
-        mStarDB.setStarred(mStop, mRoute, mDirection);
-      else
-        mStarDB.unStar(mStop);
-      break;
+      case R.id.star:
+        if (mStarView.isChecked())
+          mStarDB.setStarred(mStop, mRoute, mDirection);
+        else
+          mStarDB.unStar(mStop);
+        break;
     }
   }
 

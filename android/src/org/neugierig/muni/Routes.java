@@ -44,11 +44,11 @@ public class Routes extends ListActivity
     mCursor = mStarDB.fetchAll();
     startManagingCursor(mCursor);
 
-    String[] from = new String[]{"name"};
-    int[] to = new int[]{android.R.id.text1};
+    String[] from = new String[]{"name", "route"};
+    int[] to = new int[]{android.R.id.text1, android.R.id.text2};
     SimpleCursorAdapter notes = new SimpleCursorAdapter(
         this,
-        android.R.layout.simple_list_item_1,
+        R.layout.starred_item,
         mCursor, from, to);
     mSplitListAdapter.setAdapter1(notes);
     // Force view to reload adapter; works around a crash.  :(
