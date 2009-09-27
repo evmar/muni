@@ -71,15 +71,13 @@ class SplitListAdapter extends BaseAdapter {
     return pos;
   }
   @Override public int getItemViewType(int pos) {
-    if (!hasList2())
-      return mList1.getItemViewType(pos) + 1;
-
-    if (pos < mSeparatorPos) {
-      return mList1.getItemViewType(pos) + 1;
+    if (!hasList2() || pos < mSeparatorPos) {
+      return 1 + mList1.getItemViewType(pos);
     } else if (pos == mSeparatorPos) {
       return 0;
     } else {
-      return mList2.getItemViewType(translateList2Position(pos)) + 1;
+      return 1 + mList1.getViewTypeCount() +
+          mList2.getItemViewType(translateList2Position(pos));
     }
   }
   @Override public View getView(int pos, View view, ViewGroup parent) {
@@ -103,9 +101,8 @@ class SplitListAdapter extends BaseAdapter {
   }
   @Override public int getViewTypeCount() {
     if (!hasList2())
-      return mList1.getViewTypeCount() + 1;
-
-    return mList1.getViewTypeCount() + 1 + mList2.getViewTypeCount();
+      return 1 + mList1.getViewTypeCount();
+    return 1 + mList1.getViewTypeCount() + mList2.getViewTypeCount();
   }
   @Override public boolean hasStableIds() {
     if (!hasList2())

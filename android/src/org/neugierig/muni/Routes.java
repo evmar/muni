@@ -42,6 +42,8 @@ public class Routes extends ListActivity
         android.R.layout.simple_list_item_1,
         mCursor, from, to);
     mSplitListAdapter.setAdapter1(notes);
+    // Force view to reload adapter; works around a crash.  :(
+    setListAdapter(mSplitListAdapter);
   }
 
   @Override
@@ -62,6 +64,8 @@ public class Routes extends ListActivity
         android.R.layout.simple_list_item_1,
         mRoutes);
     mSplitListAdapter.setAdapter2(adapter);
+    // Force view to reload adapter; works around a crash.  :(
+    setListAdapter(mSplitListAdapter);
   }
 
   @Override
