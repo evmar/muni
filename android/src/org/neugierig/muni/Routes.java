@@ -31,6 +31,15 @@ public class Routes extends ListActivity
     mBackendHelper.start();
   }
 
+  @Override
+  public void onResume() {
+    super.onResume();
+    // When they've gone off in another Activity and changed the starring
+    // of entries, we want to reflect that here immediately whenever we
+    // reappear.
+    fillStarred();
+  }
+
   private void fillStarred() {
     mCursor = mStarDB.fetchAll();
     startManagingCursor(mCursor);
