@@ -50,7 +50,7 @@ class AsyncBackendHelper implements AsyncBackend.APIResultCallback {
               public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                   case DialogInterface.BUTTON1:
-                    mDelegate.startAsyncQuery(mBackend);
+                    start();
                     break;
                   case DialogInterface.BUTTON2:
                     mActivity.dismissDialog(ERROR_DIALOG_ID);
