@@ -21,7 +21,6 @@
        android:layout_weight="1"
        android:padding="8sp"
        >
-      <!-- TODO: use the system style, rather than hardcoding in white. -->
       <TextView android:id="@+id/title"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -34,6 +33,7 @@
       <TextView android:id="@+id/subtitle"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:maxLines="2"
                 android:ellipsize="end"
                 />
@@ -44,6 +44,7 @@
               style="?android:attr/starStyle"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:padding="4sp"
               />
   </LinearLayout>
 
