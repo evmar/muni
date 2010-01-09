@@ -14,6 +14,16 @@ public class Stops extends ListActivity implements AsyncBackendHelper.Delegate {
   private String mQuery;
   private AsyncBackendHelper mBackendHelper;
 
+  private class StopsQuery implements AsyncBackend.Query {
+    final String mQuery;
+    StopsQuery(String query) {
+      mQuery = query;
+    }
+    public Object runQuery(Backend backend) throws Exception {
+      return backend.fetchStops(mQuery);
+    }
+  }
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
@@ -30,12 +40,7 @@ public class Stops extends ListActivity implements AsyncBackendHelper.Delegate {
     setListAdapter(adapter);
 
     mBackendHelper = new AsyncBackendHelper(this, this);
-    mBackendHelper.start();
-  }
-
-  @Override
-  public void startAsyncQuery(AsyncBackend backend) {
-    backend.fetchStops(mQuery, mBackendHelper);
+    mBackendHelper.start(new StopsQuery(mQuery));
   }
 
   @Override

@@ -15,10 +15,20 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate,
   private String mRoute;
   private String mDirection;
   private AsyncBackendHelper mBackendHelper;
-  // Whether to force going out to the network for a query.
-  private boolean mRefresh = false;
   private StarDBAdapter mStarDB;
   private CheckBox mStarView;
+
+  private class StopQuery implements AsyncBackend.Query {
+    final String mQuery;
+    final boolean mReload;
+    StopQuery(String query, boolean reload) {
+      mQuery = query;
+      mReload = reload;
+    }
+    public Object runQuery(Backend backend) throws Exception {
+      return backend.fetchStop(mQuery, mReload);
+    }
+  }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -44,12 +54,7 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate,
     mStarView.setChecked(mStarDB.getStarred(mStop.url));
 
     mBackendHelper = new AsyncBackendHelper(this, this);
-    mBackendHelper.start();
-  }
-
-  @Override
-  public void startAsyncQuery(AsyncBackend backend) {
-    backend.fetchStop(mStop.url, mRefresh, mBackendHelper);
+    mBackendHelper.start(new StopQuery(mStop.url, false));
   }
 
   @Override
@@ -100,8 +105,7 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate,
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
     case R.id.refresh:
-      mRefresh = true;
-      mBackendHelper.start();
+      mBackendHelper.start(new StopQuery(mStop.url, true));
       return true;
     }
     return false;

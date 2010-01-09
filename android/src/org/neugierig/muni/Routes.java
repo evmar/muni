@@ -16,6 +16,12 @@ public class Routes extends ListActivity
   private StarDBAdapter mStarDB;
   private Cursor mCursor;
 
+  private class RoutesQuery implements AsyncBackend.Query {
+    public Object runQuery(Backend backend) throws Exception {
+      return backend.fetchRoutes();
+    }
+  }
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
@@ -28,7 +34,7 @@ public class Routes extends ListActivity
     setListAdapter(mSplitListAdapter);
 
     mBackendHelper = new AsyncBackendHelper(this, this);
-    mBackendHelper.start();
+    mBackendHelper.start(new RoutesQuery());
   }
 
   @Override
@@ -53,11 +59,6 @@ public class Routes extends ListActivity
     mSplitListAdapter.setAdapter1(notes);
     // Force view to reload adapter; works around a crash.  :(
     setListAdapter(mSplitListAdapter);
-  }
-
-  @Override
-  public void startAsyncQuery(AsyncBackend backend) {
-    backend.fetchRoutes(mBackendHelper);
   }
 
   @Override

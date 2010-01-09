@@ -9,10 +9,6 @@ import android.util.Log;
 // manages displaying the "Network Error" dialog.
 class AsyncBackendHelper implements AsyncBackend.APIResultCallback {
   public interface Delegate {
-    // More Java callback snafu workaround; lets the caller pass a bit
-    // of code to run against the AsyncBackend.
-    public void startAsyncQuery(AsyncBackend backend);
-
     // Return the result of a query.  If there was an error, it will
     // never get called.
     public void onAsyncResult(Object obj);
@@ -24,9 +20,14 @@ class AsyncBackendHelper implements AsyncBackend.APIResultCallback {
     mBackend = new AsyncBackend(activity);
   }
 
-  public void start() {
+  public void start(AsyncBackend.Query query) {
+    mQuery = query;
+    restart();
+  }
+
+  public void restart() {
     mActivity.setProgressBarIndeterminateVisibility(true);
-    mDelegate.startAsyncQuery(mBackend);
+    mBackend.startQuery(mQuery, this);
   }
 
   @Override
@@ -50,7 +51,7 @@ class AsyncBackendHelper implements AsyncBackend.APIResultCallback {
               public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                   case DialogInterface.BUTTON1:
-                    start();
+                    restart();
                     break;
                   case DialogInterface.BUTTON2:
                     mActivity.dismissDialog(ERROR_DIALOG_ID);
@@ -77,4 +78,5 @@ class AsyncBackendHelper implements AsyncBackend.APIResultCallback {
   private Delegate mDelegate;
   private AsyncBackend mBackend;
   private Exception mBackendError;
+  private AsyncBackend.Query mQuery;
 }

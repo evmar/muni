@@ -15,6 +15,16 @@ public class Route extends ListActivity implements AsyncBackendHelper.Delegate {
   private MuniAPI.Direction[] mDirections;
   private AsyncBackendHelper mBackendHelper;
 
+  private class RouteQuery implements AsyncBackend.Query {
+    final String mQuery;
+    RouteQuery(String query) {
+      mQuery = query;
+    }
+    public Object runQuery(Backend backend) throws Exception {
+      return backend.fetchRoute(mQuery);
+    }
+  }
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
@@ -30,12 +40,7 @@ public class Route extends ListActivity implements AsyncBackendHelper.Delegate {
     setListAdapter(adapter);
 
     mBackendHelper = new AsyncBackendHelper(this, this);
-    mBackendHelper.start();
-  }
-
-  @Override
-  public void startAsyncQuery(AsyncBackend backend) {
-    backend.fetchRoute(mQuery, mBackendHelper);
+    mBackendHelper.start(new RouteQuery(mQuery));
   }
 
   @Override
