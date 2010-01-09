@@ -9,10 +9,10 @@ import android.view.*;
 import android.widget.*;
 
 public class Routes extends ListActivity
-                    implements AsyncBackendHelper.Delegate {
+                    implements AsyncBackend.Delegate {
   private MuniAPI.Route[] mRoutes;
   private SplitListAdapter mSplitListAdapter;
-  private AsyncBackendHelper mBackendHelper;
+  private AsyncBackend mBackend;
   private StarDBAdapter mStarDB;
   private Cursor mCursor;
 
@@ -33,8 +33,8 @@ public class Routes extends ListActivity
     fillStarred();
     setListAdapter(mSplitListAdapter);
 
-    mBackendHelper = new AsyncBackendHelper(this, this);
-    mBackendHelper.start(new RoutesQuery());
+    mBackend = new AsyncBackend(this, this);
+    mBackend.start(new RoutesQuery());
   }
 
   @Override
@@ -63,7 +63,7 @@ public class Routes extends ListActivity
 
   @Override
   protected Dialog onCreateDialog(int id) {
-    return mBackendHelper.onCreateDialog(id);
+    return mBackend.onCreateDialog(id);
   }
 
   @Override

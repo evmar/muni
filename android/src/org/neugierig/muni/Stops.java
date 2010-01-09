@@ -6,13 +6,13 @@ import android.content.*;
 import android.widget.*;
 import android.view.*;
 
-public class Stops extends ListActivity implements AsyncBackendHelper.Delegate {
+public class Stops extends ListActivity implements AsyncBackend.Delegate {
   private MuniAPI.Stop[] mStops;
 
   private String mRoute;
   private String mDirection;
   private String mQuery;
-  private AsyncBackendHelper mBackendHelper;
+  private AsyncBackend mBackend;
 
   private class StopsQuery implements AsyncBackend.Query {
     final String mQuery;
@@ -39,13 +39,13 @@ public class Stops extends ListActivity implements AsyncBackendHelper.Delegate {
         new String[] {});
     setListAdapter(adapter);
 
-    mBackendHelper = new AsyncBackendHelper(this, this);
-    mBackendHelper.start(new StopsQuery(mQuery));
+    mBackend = new AsyncBackend(this, this);
+    mBackend.start(new StopsQuery(mQuery));
   }
 
   @Override
   protected Dialog onCreateDialog(int id) {
-    return mBackendHelper.onCreateDialog(id);
+    return mBackend.onCreateDialog(id);
   }
 
   @Override

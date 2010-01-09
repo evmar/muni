@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.widget.*;
 import android.view.*;
 
-public class Route extends ListActivity implements AsyncBackendHelper.Delegate {
+public class Route extends ListActivity implements AsyncBackend.Delegate {
   public static final String KEY_ROUTE = "route";
   public static final String KEY_DIRECTION = "direction";
 
   private String mRoute;
   private String mQuery;
   private MuniAPI.Direction[] mDirections;
-  private AsyncBackendHelper mBackendHelper;
+  private AsyncBackend mBackend;
 
   private class RouteQuery implements AsyncBackend.Query {
     final String mQuery;
@@ -39,13 +39,13 @@ public class Route extends ListActivity implements AsyncBackendHelper.Delegate {
         new String[] {});
     setListAdapter(adapter);
 
-    mBackendHelper = new AsyncBackendHelper(this, this);
-    mBackendHelper.start(new RouteQuery(mQuery));
+    mBackend = new AsyncBackend(this, this);
+    mBackend.start(new RouteQuery(mQuery));
   }
 
   @Override
   protected Dialog onCreateDialog(int id) {
-    return mBackendHelper.onCreateDialog(id);
+    return mBackend.onCreateDialog(id);
   }
 
   @Override

@@ -6,7 +6,7 @@ import android.view.*;
 import android.widget.*;
 import android.util.Log;
 
-public class Stop extends Activity implements AsyncBackendHelper.Delegate,
+public class Stop extends Activity implements AsyncBackend.Delegate,
                                               View.OnClickListener {
   // Intent extra data on the stop name.
   public static final String KEY_NAME = "name";
@@ -14,7 +14,7 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate,
   private MuniAPI.Stop mStop;
   private String mRoute;
   private String mDirection;
-  private AsyncBackendHelper mBackendHelper;
+  private AsyncBackend mBackend;
   private StarDBAdapter mStarDB;
   private CheckBox mStarView;
 
@@ -53,13 +53,13 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate,
     mStarView.setOnClickListener(this);
     mStarView.setChecked(mStarDB.getStarred(mStop.url));
 
-    mBackendHelper = new AsyncBackendHelper(this, this);
-    mBackendHelper.start(new StopQuery(mStop.url, false));
+    mBackend = new AsyncBackend(this, this);
+    mBackend.start(new StopQuery(mStop.url, false));
   }
 
   @Override
   protected Dialog onCreateDialog(int id) {
-    return mBackendHelper.onCreateDialog(id);
+    return mBackend.onCreateDialog(id);
   }
 
   @Override
@@ -105,7 +105,7 @@ public class Stop extends Activity implements AsyncBackendHelper.Delegate,
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
     case R.id.refresh:
-      mBackendHelper.start(new StopQuery(mStop.url, true));
+      mBackend.start(new StopQuery(mStop.url, true));
       return true;
     }
     return false;
